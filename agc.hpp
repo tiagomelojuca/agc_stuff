@@ -636,29 +636,6 @@ public:
     {
         vec = std::move(other.vec);
     }
-    vector& operator=(const vector& other)
-    {
-        if (this != &other)
-        {
-            vec.clear();
-            vec_size = other.vec_size;
-            std::copy(other.vec.begin(), other.vec.end(), std::back_inserter(vec));
-        }
-
-        return *this;
-    }
-    vector& operator=(vector&& other)
-    {
-        if (this != &other)
-        {
-            vec.clear();
-            vec_size = other.vec_size;
-            vec = std::move(other.vec);
-            other.vec_size = 0;
-        }
-
-        return *this;
-    }
     explicit vector(int _size) : vec_size(_size)
     {
         if (vec_size < 0)
@@ -703,6 +680,29 @@ public:
 
         return vec[idx - 1];
     };
+    vector& operator=(const vector& other)
+    {
+        if (this != &other)
+        {
+            vec.clear();
+            vec_size = other.vec_size;
+            std::copy(other.vec.begin(), other.vec.end(), std::back_inserter(vec));
+        }
+
+        return *this;
+    }
+    vector& operator=(vector&& other)
+    {
+        if (this != &other)
+        {
+            vec.clear();
+            vec_size = other.vec_size;
+            vec = std::move(other.vec);
+            other.vec_size = 0;
+        }
+
+        return *this;
+    }
 
     int size() const
     {
