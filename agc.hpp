@@ -25,8 +25,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef AGC_HPP_
 #define AGC_HPP_
 
-#include <vector>
+#include <algorithm>
 #include <functional>
+#include <vector>
 
 // ---------------------------------------------------------------------------------
 
@@ -352,7 +353,8 @@ public:
     };
     matrix& operator=(const matrix& other)
     {
-        if (this != &other) {
+        if (this != &other)
+        {
             mtx.clear();
             rows = other.rows;
             cols = other.cols;
@@ -366,7 +368,8 @@ public:
     }
     matrix& operator=(matrix&& other)
     {
-        if (this != &other) {
+        if (this != &other)
+        {
             mtx.clear();
             rows = other.rows;
             cols = other.cols;
@@ -622,12 +625,41 @@ class agc::vector
 {
 public:
     vector() = delete;
-    vector(const vector&) = delete;
-    vector(vector&&) = delete;
-    vector& operator=(const vector&) = delete;
+    vector(const vector& other) : vec_size(other.vec_size)
+    {
+        for (auto&& val : other.vec)
+        {
+            vec.push_back(val);
+        }
+    }
+    vector(vector&& other) : vec_size(other.vec_size)
+    {
+        vec = std::move(other.vec);
+    }
+    vector& operator=(const vector& other)
+    {
+        if (this != &other)
+        {
+            vec.clear();
+            vec_size = other.vec_size;
+            std::copy(other.vec.begin(), other.vec.end(), std::back_inserter(vec));
+        }
 
-    explicit vector(int _size)
-        : vec_size(_size)
+        return *this;
+    }
+    vector& operator=(vector&& other)
+    {
+        if (this != &other)
+        {
+            vec.clear();
+            vec_size = other.vec_size;
+            vec = std::move(other.vec);
+            other.vec_size = 0;
+        }
+
+        return *this;
+    }
+    explicit vector(int _size) : vec_size(_size)
     {
         if (vec_size < 0)
         {
@@ -639,8 +671,7 @@ public:
             vec.push_back(0);
         }
     }
-    explicit vector(int _size, const std::vector<T>& _elements)
-        : vec_size(_size)
+    explicit vector(int _size, const std::vector<T>& _elements) : vec_size(_size)
     {
         if (vec_size < 0)
         {
@@ -675,12 +706,24 @@ public:
 
     int size() const
     {
-        return size;
+        return vec_size;
+    }
+    bool is_same_size(const vector& other) const
+    {
+        return vec_size == other.vec_size;
+    }
+    bool is_empty() const
+    {
+        return vec_size == 0;
+    }
+    bool is_null_vector() const
+    {
+        return !std::any_of(vec.begin(), vec.end(), [](T it) { return it != 0; });
     }
 
 private:
     std::vector<T> vec;
-    const int vec_size;
+    int vec_size;
 };
 
 // ---------------------------------------------------------------------------------
@@ -692,7 +735,7 @@ public:
     solver() = delete;
     solver(const solver&) = delete;
     solver(solver&&) = delete;
-    solver& operator=(const solver&);
+    solver& operator=(const solver&) = delete;
     explicit solver(const matrix<T>& sysmtx) : sysmtx(sysmtx) {};
 
     explicit solver(int _r, int _c, const std::vector<std::vector<T>>& _elems)
