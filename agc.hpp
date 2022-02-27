@@ -971,6 +971,10 @@ public:
         : sysmtx(_r, _c, _elems)
     {};
 
+    explicit solver(const std::vector<std::vector<T>>& _elems)
+        : sysmtx(_elems.size(), get_higher_column(_elems), _elems)
+    {};
+
     matrix<T> gauss() const
     {
         if (sysmtx.size_cols() != sysmtx.size_rows() + 1)
@@ -1025,7 +1029,32 @@ public:
         return V;
     }
 
+    static vector<T> solve(const std::vector<std::vector<T>>& mtx)
+    {
+        return linker<T>::mtx_to_vec(solver<T>(mtx).solve());
+    }
+
 private:
+    int get_higher_column(const std::vector<std::vector<T>>& mtx)
+    {
+        const int rows = mtx.size();
+        if (rows == 0)
+        {
+            throw std::domain_error("invalid augmented matrix");
+        }
+
+        int cols = 0;
+        for (int i = 0; i < rows; i++)
+        {
+            const std::vector<T>& current = mtx[i];
+            const int csize = current.size();
+
+            cols = cols < csize ? csize : cols;
+        }
+
+        return cols;
+    }
+
     const matrix<T> sysmtx;
 };
 
