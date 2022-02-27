@@ -40,6 +40,9 @@ namespace agc
     class vector;
 
     template <typename T>
+    class linker;
+
+    template <typename T>
     class solver;
 }
 
@@ -887,6 +890,70 @@ namespace agc
         return lhs;
     }
 }
+
+// ---------------------------------------------------------------------------------
+
+template <typename T>
+class agc::linker
+{
+public:
+    static vector<T> mtx_to_vec(const matrix<T>& mtx)
+    {
+        if (mtx.is_row_matrix())
+        {
+            const int vec_size = mtx.size_cols();
+            vector<T> vec(vec_size);
+
+            for (int i = 1; i <= vec_size; i++)
+            {
+                vec[i] = mtx[1][i];
+            }
+
+            return vec;
+        }
+        else if (mtx.is_column_matrix())
+        {
+            const int vec_size = mtx.size_rows();
+            vector<T> vec(vec_size);
+
+            for (int i = 1; i <= vec_size; i++)
+            {
+                vec[i] = mtx[i][1];
+            }
+
+            return vec;
+        }
+
+        vector<T> vec(0);
+        return vec;
+    }
+
+    static matrix<T> vec_to_mtx_rol(const vector<T>& vec)
+    {
+        const int vec_size = vec.size();
+        matrix<T> mtx(1, vec_size);
+
+        for (int i = 1; i <= vec_size; i++)
+        {
+            mtx[1][i] = vec[i];
+        }
+
+        return mtx;
+    }
+
+    static matrix<T> vec_to_mtx_col(const vector<T>& vec)
+    {
+        const int vec_size = vec.size();
+        matrix<T> mtx(vec_size, 1);
+
+        for (int i = 1; i <= vec_size; i++)
+        {
+            mtx[i][1] = vec[i];
+        }
+
+        return mtx;
+    }
+};
 
 // ---------------------------------------------------------------------------------
 
