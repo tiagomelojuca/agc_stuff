@@ -578,48 +578,6 @@ private:
 
 // ---------------------------------------------------------------------------------
 
-namespace agc
-{
-    template <typename T>
-    inline matrix<T> operator+(matrix<T> lhs, const matrix<T>& rhs)
-    {
-        lhs += rhs;
-        return lhs;
-    }
-    template <typename T>
-    inline matrix<T> operator-(matrix<T> lhs, const matrix<T>& rhs)
-    {
-        lhs -= rhs;
-        return lhs;
-    }
-    template <typename T>
-    inline matrix<T> operator*(matrix<T> lhs, T rhs)
-    {
-        lhs *= rhs;
-        return lhs;
-    }
-    template <typename T>
-    inline matrix<T> operator*(T rhs, matrix<T> lhs)
-    {
-        lhs *= rhs;
-        return lhs;
-    }
-    template <typename T>
-    inline matrix<T> operator/(matrix<T> lhs, T rhs)
-    {
-        lhs /= rhs;
-        return lhs;
-    }
-    template <typename T>
-    inline matrix<T> operator*(matrix<T> lhs, const matrix<T>& rhs)
-    {
-        lhs *= rhs;
-        return lhs;
-    }
-}
-
-// ---------------------------------------------------------------------------------
-
 template <typename T>
 class agc::vector
 {
@@ -857,6 +815,48 @@ private:
     std::vector<T> vec;
     int vec_size;
 };
+
+// ---------------------------------------------------------------------------------
+
+namespace agc
+{
+    template <typename T>
+    inline matrix<T> operator+(matrix<T> lhs, const matrix<T>& rhs)
+    {
+        lhs += rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline matrix<T> operator-(matrix<T> lhs, const matrix<T>& rhs)
+    {
+        lhs -= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline matrix<T> operator*(matrix<T> lhs, T rhs)
+    {
+        lhs *= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline matrix<T> operator*(T rhs, matrix<T> lhs)
+    {
+        lhs *= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline matrix<T> operator/(matrix<T> lhs, T rhs)
+    {
+        lhs /= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline matrix<T> operator*(matrix<T> lhs, const matrix<T>& rhs)
+    {
+        lhs *= rhs;
+        return lhs;
+    }
+}
 
 // ---------------------------------------------------------------------------------
 
