@@ -37,6 +37,9 @@ namespace agc
 
     template <typename T>
     class vector;
+
+    template <typename T>
+    class solver;
 }
 
 // ---------------------------------------------------------------------------------
@@ -678,6 +681,80 @@ public:
 private:
     std::vector<T> vec;
     const int vec_size;
+};
+
+// ---------------------------------------------------------------------------------
+
+template <typename T>
+class agc::solver
+{
+public:
+    solver() = delete;
+    solver(const solver&) = delete;
+    solver(solver&&) = delete;
+    solver& operator=(const solver&);
+    explicit solver(const matrix<T>& sysmtx) : sysmtx(sysmtx) {};
+
+    explicit solver(int _r, int _c, const std::vector<std::vector<T>>& _elems)
+        : sysmtx(_r, _c, _elems)
+    {};
+
+    matrix<T> gauss() const
+    {
+        if (sysmtx.size_cols() != sysmtx.size_rows() + 1)
+        {
+            throw std::domain_error("invalid augmented matrix");
+        }
+
+        matrix<T> G(sysmtx);
+
+        const int size_eqsys = sysmtx.size_rows();
+        for (int i = 1; i <= size_eqsys - 1; i++)
+        {
+            T aii = G[i][i];
+            if (aii == 0)
+            {
+                throw std::domain_error(
+                    "reached a division by zero in augmented matrix"
+                );
+            }
+
+            for (int j = i + 1; j <= size_eqsys; j++)
+            {
+                T ratio = G[j][i] / aii;
+                for (int k = 1; k <= size_eqsys + 1; k++)
+                {
+                    G[j][k] -= ratio * G[i][k];
+                }
+            }
+        }
+
+        return G;
+    }
+    
+    matrix<T> solve() const
+    {
+        matrix<T> G = gauss();
+        const int rows = sysmtx.size_rows();
+        const int cols = sysmtx.size_cols();
+
+        matrix<T> V(rows, 1);
+        V[rows][1] = G[rows][cols] / G[rows][rows];
+        for (int i = rows - 1; i >= 1; i--)
+        {
+            V[i][1] = G[i][cols];
+            for (int j = i + 1; j <= rows; j++)
+            {
+                V[i][1] -= G[i][j] * V[j][1];
+            }
+            V[i][1] /= G[i][i];
+        }
+
+        return V;
+    }
+
+private:
+    const matrix<T> sysmtx;
 };
 
 // ---------------------------------------------------------------------------------

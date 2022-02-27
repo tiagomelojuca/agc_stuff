@@ -1,31 +1,23 @@
 #include <iostream>
-
 #include "agc.hpp"
-
-void dbg_print_mtx(const agc::matrix<int>& matriz, const char* str)
-{
-    std::cout << str << std::endl;
-    for (int i = 1; i <= matriz.size_rows(); i++) {
-        for (int j = 1; j <= matriz.size_cols(); j++) {
-            std::cout << matriz[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-void dbg_print_mtx(const agc::matrix<double>& matriz, const char* str)
-{
-    std::cout << str << std::endl;
-    for (int i = 1; i <= matriz.size_rows(); i++) {
-        for (int j = 1; j <= matriz.size_cols(); j++) {
-            std::cout << matriz[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 int main()
 {
-    std::cout << "bool ? " << (true ? "true" : "false") << std::endl;
-    std::cout << "return 0" << std::endl;
+    agc::solver<double> eqsys(3, 4, {
+        { 1,  1, 1,  9 },
+        { 2, -3, 4, 13 },
+        { 3,  4, 5, 40 }
+    });
+    auto v = eqsys.solve();
+
+    std::cout << "V = [X, Y, Z]" << std::endl;
+    for (int i = 1; i <= v.size_rows(); i++)
+    {
+        for (int j = 1; j <= v.size_cols(); j++)
+        {
+            std::cout << "        " << v[i][j] << std::endl;
+        }
+    }
+
     return 0;
 }
