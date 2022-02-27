@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "agc.hpp"
+#include "agcdbg.h"
 
 int main()
 {
@@ -10,14 +12,7 @@ int main()
     });
     auto v = eqsys.solve();
 
-    std::cout << "V = [X, Y, Z]" << std::endl;
-    for (int i = 1; i <= v.size_rows(); i++)
-    {
-        for (int j = 1; j <= v.size_cols(); j++)
-        {
-            std::cout << "        " << v[i][j] << std::endl;
-        }
-    }
+    print_matrix(v);
 
     return 0;
 }
