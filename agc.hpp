@@ -662,6 +662,23 @@ public:
         }
     }
 
+    int size() const
+    {
+        return vec_size;
+    }
+    bool is_same_size(const vector& other) const
+    {
+        return vec_size == other.vec_size;
+    }
+    bool is_empty() const
+    {
+        return vec_size == 0;
+    }
+    bool is_null_vector() const
+    {
+        return !std::any_of(vec.begin(), vec.end(), [](T it) { return it != 0; });
+    }
+
     T& operator[](int idx)
     {
         if (idx < 1 || idx > vec_size)
@@ -702,23 +719,6 @@ public:
         }
 
         return *this;
-    }
-
-    int size() const
-    {
-        return vec_size;
-    }
-    bool is_same_size(const vector& other) const
-    {
-        return vec_size == other.vec_size;
-    }
-    bool is_empty() const
-    {
-        return vec_size == 0;
-    }
-    bool is_null_vector() const
-    {
-        return !std::any_of(vec.begin(), vec.end(), [](T it) { return it != 0; });
     }
 
 private:
