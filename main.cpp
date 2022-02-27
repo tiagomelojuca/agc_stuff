@@ -25,8 +25,9 @@ int main()
     v1.fill_with(15);
     agc::vector<double> v2(5);
     v2.fill_with(5);
-    v1 = v1.times(v2);
-    print_vector(v1);
+    agc::vector<double> v3(0);
+    v3 = (3.0 * (v1 + v2)) / 2.5;
+    print_vector(v3);
 
     return 0;
 }

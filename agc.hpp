@@ -856,6 +856,36 @@ namespace agc
         lhs *= rhs;
         return lhs;
     }
+    template <typename T>
+    inline vector<T> operator+(vector<T> lhs, const vector<T>& rhs)
+    {
+        lhs += rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline vector<T> operator-(vector<T> lhs, const vector<T>& rhs)
+    {
+        lhs -= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline vector<T> operator*(vector<T> lhs, T rhs)
+    {
+        lhs *= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline vector<T> operator*(T rhs, vector<T> lhs)
+    {
+        lhs *= rhs;
+        return lhs;
+    }
+    template <typename T>
+    inline vector<T> operator/(vector<T> lhs, T rhs)
+    {
+        lhs /= rhs;
+        return lhs;
+    }
 }
 
 // ---------------------------------------------------------------------------------
