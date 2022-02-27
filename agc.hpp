@@ -170,23 +170,27 @@ public:
     {
         return rows == other.rows && cols == other.cols;
     }
-    bool is_row_matrix() const
-    {
-        return rows == 1;
-    }
-    bool is_column_matrix() const
-    {
-        return cols == 1;
-    }
-    bool is_square_matrix() const
-    {
-        return rows == cols;
-    }
     bool is_empty() const
     {
         return rows == 0 || cols == 0;
     }
-    bool is_null() const
+    bool is_square_matrix() const
+    {
+        return !is_empty() && rows == cols;
+    }
+    bool is_rectangular_matrix() const
+    {
+        return !is_empty() && !is_square_matrix();
+    }
+    bool is_row_matrix() const
+    {
+        return is_rectangular_matrix() && rows == 1;
+    }
+    bool is_column_matrix() const
+    {
+        return is_rectangular_matrix() && cols == 1;
+    }
+    bool is_null_matrix() const
     {
         if (is_empty())
         {
@@ -205,6 +209,82 @@ public:
         }
 
         return true;
+    }
+    bool is_triangular_upper_matrix() const
+    {
+        if (!is_square_matrix())
+        {
+            return false;
+        }
+
+        for (int i = 1; i < rows; i++)
+        {
+            for (int j = i + 1; j <= cols; j++)
+            {
+                if ((*this)[i][j] != 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    bool is_triangular_lower_matrix() const
+    {
+        if (!is_square_matrix())
+        {
+            return false;
+        }
+
+        for (int i = 2; i <= rows; i++)
+        {
+            for (int j = 1; j <= i - 1; j++)
+            {
+                if ((*this)[i][j] != 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    bool is_triangular_matrix() const
+    {
+        return is_triangular_upper_matrix() || is_triangular_lower_matrix();
+    }
+    bool is_diagonal_matrix() const
+    {
+        return is_triangular_upper_matrix() && is_triangular_lower_matrix();
+    }
+    bool is_scalar_matrix() const
+    {
+        T a11 = (*this)[1][1];
+        if (a11 == 0)
+        {
+            return false;
+        }
+
+        if (!is_diagonal_matrix())
+        {
+            return false;
+        }
+
+        const int diagonal_size = rows;
+        for(int i = 2; i <= diagonal_size; i++)
+        {
+            if ((*this)[i][i] != a11)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    bool is_identity_matrix() const
+    {
+        return (*this)[1][1] == 1 && is_scalar_matrix();
     }
 
     void transform(int row_begin, int row_end, int col_begin, int col_end,
@@ -455,6 +535,33 @@ public:
         }
 
         return aT;
+    }
+    matrix identity() const
+    {
+        matrix<T> I(rows, cols);
+        
+        const int diagonal_size = rows;
+        for (int i = 1; i <= diagonal_size; i++)
+        {
+            I[i][i] = 1;
+        }
+
+        return I;
+    }
+    bool is_symmetric() const
+    {
+        if (!is_square_matrix())
+        {
+            return false;
+        }
+
+        const matrix<T> aT = this->transpose();
+
+        return (*this) == aT;
+    }
+    bool is_inverse(const matrix& other)
+    {
+        return (*this) * other == this->identity();
     }
 
 private:
