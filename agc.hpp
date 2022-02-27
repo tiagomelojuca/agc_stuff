@@ -679,6 +679,41 @@ public:
         return !std::any_of(vec.begin(), vec.end(), [](T it) { return it != 0; });
     }
 
+    void transform(int idx_begin, int idx_end, std::function<T(T)> unary_op)
+    {
+        for (int i = idx_begin; i <= idx_end; i++)
+        {
+            T old_value = (*this)[i];
+            (*this)[i] = unary_op(old_value);
+        }
+    }
+    void transform(int idx_begin, int idx_end, const vector& other,
+                   std::function<T(T, T)> binary_op)
+    {
+        if (!is_same_size(other))
+        {
+            throw std::domain_error("vector transform must have same size");
+        }
+
+        for (int i = idx_begin; i <= idx_end; i++)
+        {
+            T old_value = (*this)[i];
+            (*this)[i] = binary_op(old_value, other[i]);
+        }
+    }
+    void transform(std::function<T(T)> unary_op)
+    {
+        transform(1, vec_size, unary_op);
+    }
+    void transform(const vector& other, std::function<T(T, T)> binary_op)
+    {
+        transform(1, vec_size, other, binary_op);
+    }
+    void fill_with(T val)
+    {
+        transform([&val](T) -> T { return val; });
+    }
+
     T& operator[](int idx)
     {
         if (idx < 1 || idx > vec_size)
@@ -719,6 +754,103 @@ public:
         }
 
         return *this;
+    }
+    bool operator==(const vector& other) const
+    {
+        if (!is_same_size(other)) {
+            return false;
+        }
+
+        for (int i = 1; i <= vec_size; i++)
+        {
+            if ((*this)[i] != other[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    bool operator!=(const vector& other) const
+    {
+        return !operator==(other);
+    }
+    bool operator< (const vector& other) const = delete;
+    bool operator> (const vector& other) const = delete;
+    bool operator<=(const vector& other) const = delete;
+    bool operator>=(const vector& other) const = delete;
+    vector& operator++()
+    {
+        transform([](T a_ij) -> T { return ++a_ij; });
+        return *this;
+    }
+    vector operator++(int)
+    {
+        vector tmp(*this);
+        operator++();
+        return tmp;
+    }
+    vector& operator--()
+    {
+        transform([](T a_ij) -> T { return --a_ij; });
+        return *this;
+    }
+    vector operator--(int)
+    {
+        vector tmp(*this);
+        operator--();
+        return tmp;
+    }
+    vector& operator+=(const vector& other)
+    {
+        if (!is_same_size(other))
+        {
+            throw std::domain_error("vector addition must have same size");
+        }
+
+        transform(other, [](T a_ij, T b_ij) -> T { return a_ij + b_ij; });
+
+        return *this;
+    }
+    vector& operator-=(const vector& other)
+    {
+        if (!is_same_size(other))
+        {
+            throw std::domain_error("vector subtraction must have same size");
+        }
+
+        transform(other, [](T a_ij, T b_ij) -> T { return a_ij - b_ij; });
+
+        return *this;
+    }
+    vector& operator*=(T value)
+    {
+        transform([&value](T a_ij) -> T { return value * a_ij; });
+        return *this;
+    }
+    vector& operator/=(T value)
+    {
+        if (value == 0) {
+            throw std::domain_error("vector divison by zero is not allowed");
+        }
+
+        transform([&value](T a_ij) -> T { return a_ij / value; });
+        return *this;
+    }
+    vector times(const vector& other) const
+    {
+        if (!is_same_size(other))
+        {
+            throw std::domain_error("vector times must have same size");
+        }
+
+        vector<T> V(vec_size);
+        for (int i = 1; i <= vec_size; i++)
+        {
+            V[i] = (*this)[i] * other[i];
+        }
+
+        return V;
     }
 
 private:
