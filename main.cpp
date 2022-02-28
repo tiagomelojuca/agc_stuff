@@ -5,8 +5,7 @@
 
 int main()
 {
-    using solver_type = agc::solver<double>;
-    auto v = solver_type::solve({
+    auto v = agc::solver::solve({
         { 1,  1, 1,  9 },
         { 2, -3, 4, 13 },
         { 3,  4, 5, 40 }

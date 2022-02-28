@@ -33,6 +33,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace agc
 {
+    class solver;
+
     template <typename T>
     class matrix;
 
@@ -41,9 +43,6 @@ namespace agc
 
     template <typename T>
     class linker;
-
-    template <typename T>
-    class solver;
 }
 
 // ---------------------------------------------------------------------------------
@@ -957,7 +956,6 @@ public:
 
 // ---------------------------------------------------------------------------------
 
-template <typename T>
 class agc::solver
 {
 public:
@@ -965,31 +963,31 @@ public:
     solver(const solver&) = delete;
     solver(solver&&) = delete;
     solver& operator=(const solver&) = delete;
-    explicit solver(const matrix<T>& sysmtx) : sysmtx(sysmtx) {};
+    explicit solver(const matrix<double>& sysmtx) : sysmtx(sysmtx) {};
 
-    explicit solver(int _r, int _c, const std::vector<std::vector<T>>& _elems)
+    explicit solver(int _r, int _c, const std::vector<std::vector<double>>& _elems)
         : sysmtx(_r, _c, _elems)
     {};
 
-    explicit solver(const std::vector<std::vector<T>>& _elems)
+    explicit solver(const std::vector<std::vector<double>>& _elems)
         : sysmtx(_elems.size(), get_higher_column(_elems), _elems)
     {};
 
-    matrix<T> gauss() const
+    matrix<double> gauss() const
     {
         if (sysmtx.size_cols() != sysmtx.size_rows() + 1)
         {
             throw std::domain_error("invalid augmented matrix");
         }
 
-        matrix<T> G(sysmtx);
+        matrix<double> G(sysmtx);
         order_rows(G);
 
         const int size_eqsys = sysmtx.size_rows();
         for (int i = 1; i <= size_eqsys - 1; i++)
         {
-            T aii = G[i][i];
-            if (aii == 0)
+            const double aii = G[i][i];
+            if (aii == 0.0)
             {
                 throw std::domain_error(
                     "reached a division by zero in augmented matrix"
@@ -998,7 +996,7 @@ public:
 
             for (int j = i + 1; j <= size_eqsys; j++)
             {
-                T ratio = G[j][i] / aii;
+                const double ratio = G[j][i] / aii;
                 for (int k = 1; k <= size_eqsys + 1; k++)
                 {
                     G[j][k] -= ratio * G[i][k];
@@ -1009,26 +1007,26 @@ public:
         return G;
     }
     
-    matrix<T> solve() const
+    matrix<double> solve() const
     {
-        matrix<T> G = gauss();
-        matrix<T> V = gauss_back_substitution(G);
+        matrix<double> G = gauss();
+        matrix<double> V = gauss_back_substitution(G);
 
         return V;
     }
 
-    static vector<T> solve(const std::vector<std::vector<T>>& mtx)
+    static vector<double> solve(const std::vector<std::vector<double>>& mtx)
     {
-        return linker<T>::mtx_to_vec(solver<T>(mtx).solve());
+        return linker<double>::mtx_to_vec(solver(mtx).solve());
     }
 
 private:
-    matrix<T> gauss_back_substitution(const matrix<T>& gaussian_mtx) const
+    matrix<double> gauss_back_substitution(const matrix<double>& gaussian_mtx) const
     {
         const int rows = sysmtx.size_rows();
         const int cols = sysmtx.size_cols();
 
-        matrix<T> V(rows, 1);
+        matrix<double> V(rows, 1);
         
         V[rows][1] = gaussian_mtx[rows][cols] / gaussian_mtx[rows][rows];
         for (int i = rows - 1; i >= 1; i--)
@@ -1043,28 +1041,29 @@ private:
 
         return V;
     }
-    void swap_row(matrix<T>& mtx, int r1, int r2) const
+
+    void swap_row(matrix<double>& m, int r1, int r2) const
     {
-        if (r1 < 1 || r1 > mtx.size_rows() || r2 < 1 || r2 > mtx.size_rows())
+        if (r1 < 1 || r1 > m.size_rows() || r2 < 1 || r2 > m.size_rows())
         {
             throw std::out_of_range("matrix row access out of boundary");
         }
 
-        const int size_cols = mtx.size_cols();
+        const int size_cols = m.size_cols();
         for (int i = 1; i <= size_cols; i++)
         {
-            T tmp = mtx[r1][i];
-            mtx[r1][i] = mtx[r2][i];
-            mtx[r2][i] = tmp;
+            const double tmp = m[r1][i];
+            m[r1][i] = m[r2][i];
+            m[r2][i] = tmp;
         }
     }
-    int count_zeros_until_nonzero(matrix<T>& mtx, int r) const
+    int count_zeros_until_nonzero(matrix<double>& m, int r) const
     {
         int count = 0;
-        const int size_cols = mtx.size_cols();
+        const int size_cols = m.size_cols();
         for (int i = 1; i <= size_cols; i++)
         {
-            if (mtx[r][i] != 0)
+            if (m[r][i] != 0.0)
             {
                 break;
             }
@@ -1074,14 +1073,14 @@ private:
 
         return count;
     }
-    std::vector<std::pair<int, int>> make_pairs_ids_counts(matrix<T>& mtx) const
+    std::vector<std::pair<int, int>> make_pairs_ids_counts(matrix<double>& m) const
     {
         std::vector<std::pair<int, int>> ids_counts;
 
-        const int size_rows = mtx.size_rows();
+        const int size_rows = m.size_rows();
         for (int i = 1; i <= size_rows; i++)
         {
-            const int zeros = count_zeros_until_nonzero(mtx, i);
+            const int zeros = count_zeros_until_nonzero(m, i);
             std::pair<int, int> id_count = std::make_pair(i, zeros);
             ids_counts.push_back(id_count);
         }
@@ -1092,26 +1091,26 @@ private:
 
         return ids_counts;
     }
-    void order_rows(matrix<T>& mtx) const
+    void order_rows(matrix<double>& m) const
     {
-        const int size_rows = mtx.size_rows();
-        const int size_cols = mtx.size_cols();
-        std::vector<std::pair<int, int>> ids_counts = make_pairs_ids_counts(mtx);
-        matrix<T> ordered_mtx(size_rows, size_cols);
+        const int size_rows = m.size_rows();
+        const int size_cols = m.size_cols();
+        std::vector<std::pair<int, int>> ids_counts = make_pairs_ids_counts(m);
+        matrix<double> ordered_mtx(size_rows, size_cols);
 
         for (int i = 1; i <= size_rows; i++)
         {
             for (int j = 1; j <= size_cols; j++)
             {
                 const int idx_src_mtx = ids_counts[i - 1].first;
-                ordered_mtx[i][j] = mtx[idx_src_mtx][j];
+                ordered_mtx[i][j] = m[idx_src_mtx][j];
             }
         }
 
-        mtx = ordered_mtx;
+        m = ordered_mtx;
     }
 
-    int get_higher_column(const std::vector<std::vector<T>>& mtx) const
+    int get_higher_column(const std::vector<std::vector<double>>& mtx) const
     {
         const int rows = mtx.size();
         if (rows == 0)
@@ -1122,7 +1121,7 @@ private:
         int cols = 0;
         for (int i = 0; i < rows; i++)
         {
-            const std::vector<T>& current = mtx[i];
+            const std::vector<double>& current = mtx[i];
             const int csize = current.size();
 
             cols = cols < csize ? csize : cols;
@@ -1131,7 +1130,7 @@ private:
         return cols;
     }
 
-    const matrix<T> sysmtx;
+    const matrix<double> sysmtx;
 };
 
 // ---------------------------------------------------------------------------------
