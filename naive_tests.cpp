@@ -615,9 +615,11 @@ void print_tests_output()
     const char* str_err = "FAILED";
 
     const bool all_pass = num_runs == num_pass;
-    std::cout << "\nnum_runs        : " << num_runs << "\n"
-              << "num_pass        : " << num_pass << "\n"
-              << "TestSuit Status : " << (all_pass ? str_suc : str_err) << "\n\n";
+    std::cout << "\n-----------------------\n  num_runs : " << num_runs << "\n"
+              << "  num_pass : " << num_pass << "\n"
+              << "-----------------------\n  Status   : "
+              << bstr(all_pass ? gstr(str_suc).c_str() : rstr(str_err).c_str())
+              << "\n\n";
 }
 
 // ---------------------------------------------------------------------------------
