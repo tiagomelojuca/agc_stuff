@@ -14,4 +14,4 @@
                                { std::cout << _mname[i][j] << " "; }               \
                                std::cout << std::endl; }
 
-#endif
+#endif // AGCDBG_H_

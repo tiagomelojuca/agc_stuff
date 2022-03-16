@@ -190,11 +190,11 @@ public:
     }
     bool is_row_matrix() const
     {
-        return is_rectangular_matrix() && rows == 1;
+        return !is_empty() && rows == 1;
     }
     bool is_column_matrix() const
     {
-        return is_rectangular_matrix() && cols == 1;
+        return !is_empty() && cols == 1;
     }
     bool is_null_matrix() const
     {
@@ -216,7 +216,7 @@ public:
 
         return true;
     }
-    bool is_triangular_upper_matrix() const
+    bool is_triangular_lower_matrix() const
     {
         if (!is_square_matrix())
         {
@@ -236,7 +236,7 @@ public:
 
         return true;
     }
-    bool is_triangular_lower_matrix() const
+    bool is_triangular_upper_matrix() const
     {
         if (!is_square_matrix())
         {
@@ -266,17 +266,13 @@ public:
     }
     bool is_scalar_matrix() const
     {
-        T a11 = (*this)[1][1];
-        if (a11 == 0)
-        {
-            return false;
-        }
-
         if (!is_diagonal_matrix())
         {
             return false;
         }
 
+        // requires aii = a11 = a22 = ... = ann
+        T a11 = (*this)[1][1];
         const int diagonal_size = rows;
         for(int i = 2; i <= diagonal_size; i++)
         {
@@ -1135,4 +1131,4 @@ private:
 
 // ---------------------------------------------------------------------------------
 
-#endif
+#endif // AGC_HPP_
