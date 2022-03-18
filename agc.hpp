@@ -542,6 +542,11 @@ public:
     }
     matrix identity() const
     {
+        if (!is_square_matrix())
+        {
+            throw std::domain_error("matrix identity requires a square matrix");
+        }
+
         matrix<T> I(rows, cols);
         
         const int diagonal_size = rows;
@@ -562,6 +567,19 @@ public:
         const matrix<T> aT = this->transpose();
 
         return (*this) == aT;
+    }
+    bool is_skew_symmetric() const
+    {
+        if (!is_square_matrix())
+        {
+            return false;
+        }
+
+        const matrix<T> a = *this;
+        const matrix<T> aT = this->transpose();
+        const matrix<T> aO = (T)-1 * a;
+
+        return aT == aO;
     }
     bool is_inverse(const matrix& other)
     {
