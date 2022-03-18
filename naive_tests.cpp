@@ -602,7 +602,17 @@ void RunTest_Matrix_should_be_able_to_transform_its_elements()
                      m1[2][1] == 7 && m1[2][2] == 7 && m1[2][3] == 7 &&
                      m1[3][1] == 7 && m1[3][2] == 7 && m1[3][3] == 7;
 
-    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5;
+    bool ok6 = false;
+    try
+    {
+        m1.transform(1, 3, 1, 3, agc::matrix<int8_t>(1, 1), [](int8_t p1, int8_t p2) { return 0; });
+    }
+    catch (const std::domain_error& e)
+    {
+        ok6 = std::string(e.what()) == "matrix transform must have same size";
+    }
+
+    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5 && ok6;
     print_test_output("RunTest_Matrix_should_be_able_to_transform_its_elements", ok);
 }
 
