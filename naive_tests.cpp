@@ -756,7 +756,7 @@ void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
 
 int main()
 {
-    RunTest_Matrix_should_be_able_to_construct();
+    RunTest_Matrix_should_be_able_to_construct(); // TODO
     RunTest_Matrix_should_be_able_to_get_size();
     RunTest_Matrix_should_be_able_to_compare_sizes();
     RunTest_Matrix_should_be_able_to_check_if_is_empty();
@@ -772,23 +772,23 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_scalar();
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
     RunTest_Matrix_should_be_able_to_transform_its_elements();
-    RunTest_Matrix_should_be_able_to_access_elements_safely();
-    RunTest_Matrix_should_be_able_to_assign_copy();
-    RunTest_Matrix_should_be_able_to_assign_move();
-    RunTest_Matrix_should_be_able_to_compare();
-    RunTest_Matrix_should_be_able_to_compare_increment();
-    RunTest_Matrix_should_be_able_to_compare_decrement();
-    RunTest_Matrix_should_be_able_to_addition_assign();
-    RunTest_Matrix_should_be_able_to_subtraction_assign();
-    RunTest_Matrix_should_be_able_to_multiplication_assign();
-    RunTest_Matrix_should_be_able_to_division_assign();
-    RunTest_Matrix_should_be_able_to_times();
-    RunTest_Matrix_should_be_able_to_pow();
-    RunTest_Matrix_should_be_able_to_transpose();
-    RunTest_Matrix_should_be_able_to_get_identity();
-    RunTest_Matrix_should_be_able_to_check_if_is_symmetric();
-    RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric();
-    RunTest_Matrix_should_be_able_to_check_if_is_inverse();
+    RunTest_Matrix_should_be_able_to_access_elements_safely(); // TODO
+    RunTest_Matrix_should_be_able_to_assign_copy(); // TODO
+    RunTest_Matrix_should_be_able_to_assign_move(); // TODO
+    RunTest_Matrix_should_be_able_to_compare(); // TODO
+    RunTest_Matrix_should_be_able_to_compare_increment(); // TODO
+    RunTest_Matrix_should_be_able_to_compare_decrement(); // TODO
+    RunTest_Matrix_should_be_able_to_addition_assign(); // TODO
+    RunTest_Matrix_should_be_able_to_subtraction_assign(); // TODO
+    RunTest_Matrix_should_be_able_to_multiplication_assign(); // TODO
+    RunTest_Matrix_should_be_able_to_division_assign(); // TODO
+    RunTest_Matrix_should_be_able_to_times(); // TODO
+    RunTest_Matrix_should_be_able_to_pow(); // TODO
+    RunTest_Matrix_should_be_able_to_transpose(); // TODO
+    RunTest_Matrix_should_be_able_to_get_identity(); // TODO
+    RunTest_Matrix_should_be_able_to_check_if_is_symmetric(); // TODO
+    RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric(); // TODO
+    RunTest_Matrix_should_be_able_to_check_if_is_inverse(); // TODO
 
     print_tests_output();
 
