@@ -620,7 +620,51 @@ void RunTest_Matrix_should_be_able_to_transform_its_elements()
 
 void RunTest_Matrix_should_be_able_to_access_elements_safely()
 {
-    const bool ok = false;
+    agc::matrix<uint8_t> m1(3, 3);
+
+    const std::string e_msg_row = "matrix row access out of boundary";
+    const std::string e_msg_col = "matrix column access out of boundary";
+    auto is_throwing_for_row = [&e_msg_row, &m1](int i, int j) -> bool
+    {
+        bool current_ok = false;
+        try { uint8_t value_out_of_range = m1[i][j]; }
+        catch (const std::out_of_range& e) { current_ok = std::string(e.what()) == e_msg_row; }
+        return current_ok;
+    };
+    auto is_throwing_for_col = [&e_msg_col, &m1](int i, int j) -> bool
+    {
+        bool current_ok = false;
+        try { uint8_t value_out_of_range = m1[i][j]; }
+        catch (const std::out_of_range& e) { current_ok = std::string(e.what()) == e_msg_col; }
+        return current_ok;
+    };
+
+    const bool ok01 = !is_throwing_for_row(1, 1);
+    const bool ok02 = !is_throwing_for_row(2, 2);
+    const bool ok03 = !is_throwing_for_row(3, 3);
+    const bool ok04 = is_throwing_for_row(0, 1);
+    const bool ok05 = !is_throwing_for_row(1, 0);
+    const bool ok06 = is_throwing_for_row(0, 0);
+    const bool ok07 = is_throwing_for_row(4, 1);
+    const bool ok08 = !is_throwing_for_row(1, 4);
+    const bool ok09 = is_throwing_for_row(4, 4);
+    const bool ok10 = is_throwing_for_row(-1, 1);
+    const bool ok11 = !is_throwing_for_row(1, -1);
+    const bool ok12 = is_throwing_for_row(-1, -1);
+    const bool ok13 = !is_throwing_for_col(1, 1);
+    const bool ok14 = !is_throwing_for_col(1, 1);
+    const bool ok15 = !is_throwing_for_col(1, 1);
+    const bool ok16 = !is_throwing_for_col(0, 1);
+    const bool ok17 = is_throwing_for_col(1, 0);
+    const bool ok18 = !is_throwing_for_col(4, 1);
+    const bool ok19 = is_throwing_for_col(1, 4);
+    const bool ok20 = !is_throwing_for_col(-1, 1);
+    const bool ok21 = is_throwing_for_col(1, -1);
+
+    const bool ok = ok01 && ok02 && ok03 && ok04 && ok05 && ok06 &&
+                    ok07 && ok08 && ok09 && ok10 && ok11 && ok12 &&
+                    ok13 && ok14 && ok15 && ok16 && ok17 && ok18 &&
+                    ok19 && ok20 && ok21;
     print_test_output("RunTest_Matrix_should_be_able_to_access_elements_safely", ok);
 }
 
@@ -644,7 +688,93 @@ void RunTest_Matrix_should_be_able_to_assign_move()
 
 void RunTest_Matrix_should_be_able_to_compare()
 {
-    const bool ok = false;
+    const agc::matrix<uint8_t> m01(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m02(3, 3, { {0, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m03(3, 3, { {1, 0, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m04(3, 3, { {1, 2, 0} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m05(3, 3, { {1, 2, 3} ,
+                                           {0, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m06(3, 3, { {1, 2, 3} ,
+                                           {4, 0, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m07(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 0} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m08(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {0, 8, 9} });
+
+    const agc::matrix<uint8_t> m09(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 0, 9} });
+
+    const agc::matrix<uint8_t> m10(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 0} });
+
+    const agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} ,
+                                           {7, 8, 9} });
+
+    const agc::matrix<uint8_t> m12(3, 2, { {1, 2} ,
+                                           {4, 5} ,
+                                           {7, 8} });
+
+    const agc::matrix<uint8_t> m13(2, 3, { {1, 2, 3} ,
+                                           {4, 5, 6} });
+
+    const agc::matrix<uint8_t> m14(2, 2, { {1, 2} ,
+                                           {4, 5} });
+
+    const bool ok01 = !(m01 == m02);
+    const bool ok02 = !(m01 == m03);
+    const bool ok03 = !(m01 == m04);
+    const bool ok04 = !(m01 == m05);
+    const bool ok05 = !(m01 == m06);
+    const bool ok06 = !(m01 == m07);
+    const bool ok07 = !(m01 == m08);
+    const bool ok08 = !(m01 == m09);
+    const bool ok09 = !(m01 == m10);
+    const bool ok10 = m01 == m11;
+    const bool ok11 = !(m01 == m12);
+    const bool ok12 = !(m01 == m13);
+    const bool ok13 = !(m01 == m14);
+
+    const bool ok14 = m01 != m02;
+    const bool ok15 = m01 != m03;
+    const bool ok16 = m01 != m04;
+    const bool ok17 = m01 != m05;
+    const bool ok18 = m01 != m06;
+    const bool ok19 = m01 != m07;
+    const bool ok20 = m01 != m08;
+    const bool ok21 = m01 != m09;
+    const bool ok22 = m01 != m10;
+    const bool ok23 = !(m01 != m11);
+    const bool ok24 = m01 != m12;
+    const bool ok25 = m01 != m13;
+    const bool ok26 = m01 != m14;
+
+    const bool ok = ok01 && ok02 && ok03 && ok04 && ok05 && ok06 &&
+                    ok07 && ok08 && ok09 && ok10 && ok11 && ok12 &&
+                    ok13 && ok14 && ok15 && ok16 && ok17 && ok18 &&
+                    ok19 && ok20 && ok21 && ok22 && ok23 && ok24 &&
+                    ok25 && ok26;
     print_test_output("RunTest_Matrix_should_be_able_to_compare", ok);
 }
 
@@ -772,10 +902,10 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_scalar();
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
     RunTest_Matrix_should_be_able_to_transform_its_elements();
-    RunTest_Matrix_should_be_able_to_access_elements_safely(); // TODO
+    RunTest_Matrix_should_be_able_to_access_elements_safely();
     RunTest_Matrix_should_be_able_to_assign_copy(); // TODO
     RunTest_Matrix_should_be_able_to_assign_move(); // TODO
-    RunTest_Matrix_should_be_able_to_compare(); // TODO
+    RunTest_Matrix_should_be_able_to_compare();
     RunTest_Matrix_should_be_able_to_compare_increment(); // TODO
     RunTest_Matrix_should_be_able_to_compare_decrement(); // TODO
     RunTest_Matrix_should_be_able_to_addition_assign(); // TODO
