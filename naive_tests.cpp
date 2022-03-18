@@ -14,6 +14,14 @@ void print_tests_output();
 
 // ---------------------------------------------------------------------------------
 
+void RunTest_Matrix_should_be_able_to_construct()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_construct", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
 void RunTest_Matrix_should_be_able_to_get_size()
 {
     agc::matrix<uint8_t> m(3, 7);
@@ -608,10 +616,18 @@ void RunTest_Matrix_should_be_able_to_access_elements_safely()
 
 // ---------------------------------------------------------------------------------
 
-void RunTest_Matrix_should_be_able_to_assign()
+void RunTest_Matrix_should_be_able_to_assign_copy()
 {
     const bool ok = false;
-    print_test_output("RunTest_Matrix_should_be_able_to_assign", ok);
+    print_test_output("RunTest_Matrix_should_be_able_to_assign_copy", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_assign_move()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_assign_move", ok);
 }
 
 // ---------------------------------------------------------------------------------
@@ -730,6 +746,7 @@ void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
 
 int main()
 {
+    RunTest_Matrix_should_be_able_to_construct();
     RunTest_Matrix_should_be_able_to_get_size();
     RunTest_Matrix_should_be_able_to_compare_sizes();
     RunTest_Matrix_should_be_able_to_check_if_is_empty();
@@ -746,7 +763,8 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
     RunTest_Matrix_should_be_able_to_transform_its_elements();
     RunTest_Matrix_should_be_able_to_access_elements_safely();
-    RunTest_Matrix_should_be_able_to_assign();
+    RunTest_Matrix_should_be_able_to_assign_copy();
+    RunTest_Matrix_should_be_able_to_assign_move();
     RunTest_Matrix_should_be_able_to_compare();
     RunTest_Matrix_should_be_able_to_compare_increment();
     RunTest_Matrix_should_be_able_to_compare_decrement();
