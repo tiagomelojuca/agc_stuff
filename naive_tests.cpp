@@ -600,6 +600,134 @@ void RunTest_Matrix_should_be_able_to_transform_its_elements()
 
 // ---------------------------------------------------------------------------------
 
+void RunTest_Matrix_should_be_able_to_access_elements_safely()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_access_elements_safely", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_assign()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_assign", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_compare()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_compare", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_compare_increment()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_compare_increment", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_compare_decrement()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_compare_decrement", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_addition_assign()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_addition_assign", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_subtraction_assign()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_subtraction_assign", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_multiplication_assign()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_multiplication_assign", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_division_assign()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_division_assign", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_times()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_times", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_pow()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_pow", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_transpose()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_transpose", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_get_identity()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_get_identity", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_check_if_is_symmetric()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_symmetric", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
+void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
+{
+    const bool ok = false;
+    print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_inverse", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
 int main()
 {
     RunTest_Matrix_should_be_able_to_get_size();
@@ -617,6 +745,22 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_scalar();
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
     RunTest_Matrix_should_be_able_to_transform_its_elements();
+    RunTest_Matrix_should_be_able_to_access_elements_safely();
+    RunTest_Matrix_should_be_able_to_assign();
+    RunTest_Matrix_should_be_able_to_compare();
+    RunTest_Matrix_should_be_able_to_compare_increment();
+    RunTest_Matrix_should_be_able_to_compare_decrement();
+    RunTest_Matrix_should_be_able_to_addition_assign();
+    RunTest_Matrix_should_be_able_to_subtraction_assign();
+    RunTest_Matrix_should_be_able_to_multiplication_assign();
+    RunTest_Matrix_should_be_able_to_division_assign();
+    RunTest_Matrix_should_be_able_to_times();
+    RunTest_Matrix_should_be_able_to_pow();
+    RunTest_Matrix_should_be_able_to_transpose();
+    RunTest_Matrix_should_be_able_to_get_identity();
+    RunTest_Matrix_should_be_able_to_check_if_is_symmetric();
+    RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric();
+    RunTest_Matrix_should_be_able_to_check_if_is_inverse();
 
     print_tests_output();
 
