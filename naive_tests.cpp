@@ -560,6 +560,46 @@ void RunTest_Matrix_should_be_able_to_check_if_is_identity()
 
 // ---------------------------------------------------------------------------------
 
+void RunTest_Matrix_should_be_able_to_transform_its_elements()
+{
+    agc::matrix<int8_t> m1(3, 3, { {3, 0, 0} ,
+                                    {0, 3, 0} ,
+                                    {0, 0, 3} });
+    agc::matrix<int8_t> m2(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {3, 2, 1} });
+
+    m1.transform(2, 3, 2, 3, [](int8_t p) { return p + 1; });
+    const bool ok1 = m1[1][1] == 3 && m1[1][2] == 0 && m1[1][3] == 0 &&
+                     m1[2][1] == 0 && m1[2][2] == 4 && m1[2][3] == 1 &&
+                     m1[3][1] == 0 && m1[3][2] == 1 && m1[3][3] == 4;
+
+    m1.transform(2, 3, 2, 3, m2, [](int8_t p1, int8_t p2) { return p1 + p2; });
+    const bool ok2 = m1[1][1] == 3 && m1[1][2] == 0 && m1[1][3] == 0 &&
+                     m1[2][1] == 0 && m1[2][2] == 9 && m1[2][3] == 7 &&
+                     m1[3][1] == 0 && m1[3][2] == 3 && m1[3][3] == 5;
+
+    m1.transform([](int8_t p) { return p + 2; });
+    const bool ok3 = m1[1][1] == 5 && m1[1][2] ==  2 && m1[1][3] == 2 &&
+                     m1[2][1] == 2 && m1[2][2] == 11 && m1[2][3] == 9 &&
+                     m1[3][1] == 2 && m1[3][2] ==  5 && m1[3][3] == 7;
+
+    m1.transform(m2, [](int8_t p1, int8_t p2) { return p1 - p2; });
+    const bool ok4 = m1[1][1] ==  4 && m1[1][2] == 0 && m1[1][3] == -1 &&
+                     m1[2][1] == -2 && m1[2][2] == 6 && m1[2][3] ==  3 &&
+                     m1[3][1] == -1 && m1[3][2] == 3 && m1[3][3] ==  6;
+
+    m1.fill_with(7);
+    const bool ok5 = m1[1][1] == 7 && m1[1][2] == 7 && m1[1][3] == 7 &&
+                     m1[2][1] == 7 && m1[2][2] == 7 && m1[2][3] == 7 &&
+                     m1[3][1] == 7 && m1[3][2] == 7 && m1[3][3] == 7;
+
+    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5;
+    print_test_output("RunTest_Matrix_should_be_able_to_transform_its_elements", ok);
+}
+
+// ---------------------------------------------------------------------------------
+
 int main()
 {
     RunTest_Matrix_should_be_able_to_get_size();
@@ -576,6 +616,7 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_diagonal();
     RunTest_Matrix_should_be_able_to_check_if_is_scalar();
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
+    RunTest_Matrix_should_be_able_to_transform_its_elements();
 
     print_tests_output();
 
