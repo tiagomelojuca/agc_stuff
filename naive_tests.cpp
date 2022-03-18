@@ -571,11 +571,11 @@ void RunTest_Matrix_should_be_able_to_check_if_is_identity()
 void RunTest_Matrix_should_be_able_to_transform_its_elements()
 {
     agc::matrix<int8_t> m1(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
     agc::matrix<int8_t> m2(3, 3, { {1, 2, 3} ,
-                                    {4, 5, 6} ,
-                                    {3, 2, 1} });
+                                   {4, 5, 6} ,
+                                   {3, 2, 1} });
 
     m1.transform(2, 3, 2, 3, [](int8_t p) { return p + 1; });
     const bool ok1 = m1[1][1] == 3 && m1[1][2] == 0 && m1[1][3] == 0 &&
@@ -780,25 +780,59 @@ void RunTest_Matrix_should_be_able_to_compare()
 
 // ---------------------------------------------------------------------------------
 
-void RunTest_Matrix_should_be_able_to_compare_increment()
+void RunTest_Matrix_should_be_able_to_increment()
 {
-    const bool ok = false;
-    print_test_output("RunTest_Matrix_should_be_able_to_compare_increment", ok);
+    agc::matrix<uint8_t> m(3, 3, { {5, 5, 5} ,
+                                   {5, 5, 5} ,
+                                   {5, 5, 5} });
+    m++;
+    ++m;
+
+    const bool ok = m[1][1] == 7 && m[1][2] == 7 && m[1][3] == 7 &&
+                    m[2][1] == 7 && m[2][2] == 7 && m[2][3] == 7 &&
+                    m[3][1] == 7 && m[3][2] == 7 && m[3][3] == 7;
+    print_test_output("RunTest_Matrix_should_be_able_to_increment", ok);
 }
 
 // ---------------------------------------------------------------------------------
 
-void RunTest_Matrix_should_be_able_to_compare_decrement()
+void RunTest_Matrix_should_be_able_to_decrement()
 {
-    const bool ok = false;
-    print_test_output("RunTest_Matrix_should_be_able_to_compare_decrement", ok);
+    agc::matrix<uint8_t> m(3, 3, { {5, 5, 5} ,
+                                   {5, 5, 5} ,
+                                   {5, 5, 5} });
+    m--;
+    --m;
+
+    const bool ok = m[1][1] == 3 && m[1][2] == 3 && m[1][3] == 3 &&
+                    m[2][1] == 3 && m[2][2] == 3 && m[2][3] == 3 &&
+                    m[3][1] == 3 && m[3][2] == 3 && m[3][3] == 3;
+    print_test_output("RunTest_Matrix_should_be_able_to_decrement", ok);
 }
 
 // ---------------------------------------------------------------------------------
 
 void RunTest_Matrix_should_be_able_to_addition_assign()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix addition must have same size";
+
+    agc::matrix<uint8_t> m1(3, 3, { {3, 0, 0} ,
+                                    {0, 3, 0} ,
+                                    {0, 0, 3} });
+    agc::matrix<uint8_t> m2(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {3, 2, 1} });
+    m1 += m2;
+
+    const bool ok1 = m1[1][1] == 4 && m1[1][2] == 2 && m1[1][3] == 3 &&
+                     m1[2][1] == 4 && m1[2][2] == 8 && m1[2][3] == 6 &&
+                     m1[3][1] == 3 && m1[3][2] == 2 && m1[3][3] == 4;
+
+    bool ok2 = false;
+    try { m1 += agc::matrix<uint8_t>(2, 2); }
+    catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2;
     print_test_output("RunTest_Matrix_should_be_able_to_addition_assign", ok);
 }
 
@@ -806,7 +840,25 @@ void RunTest_Matrix_should_be_able_to_addition_assign()
 
 void RunTest_Matrix_should_be_able_to_subtraction_assign()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix subtraction must have same size";
+
+    agc::matrix<int8_t> m1(3, 3, { {1, 2, 3} ,
+                                   {4, 5, 6} ,
+                                   {3, 2, 1} });
+    agc::matrix<int8_t> m2(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
+    m1 -= m2;
+
+    const bool ok1 = m1[1][1] == -2 && m1[1][2] == 2 && m1[1][3] ==  3 &&
+                     m1[2][1] ==  4 && m1[2][2] == 2 && m1[2][3] ==  6 &&
+                     m1[3][1] ==  3 && m1[3][2] == 2 && m1[3][3] == -2;
+
+    bool ok2 = false;
+    try { m1 -= agc::matrix<int8_t>(2, 2); }
+    catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2;
     print_test_output("RunTest_Matrix_should_be_able_to_subtraction_assign", ok);
 }
 
@@ -814,7 +866,102 @@ void RunTest_Matrix_should_be_able_to_subtraction_assign()
 
 void RunTest_Matrix_should_be_able_to_multiplication_assign()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix multiplication requires numColumns(A) == numRows(B)";
+
+    agc::matrix<uint8_t> m1(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {3, 2, 1} });
+    m1 *= 2;
+
+    const bool ok01 = m1[1][1] == 2 && m1[1][2] ==  4 && m1[1][3] ==  6 &&
+                      m1[2][1] == 8 && m1[2][2] == 10 && m1[2][3] == 12 &&
+                      m1[3][1] == 6 && m1[3][2] ==  4 && m1[3][3] ==  2;
+
+    agc::matrix<uint8_t> m2(3, 2, { {2, 3} ,
+                                    {1, 0} ,
+                                    {4, 5} });
+
+    agc::matrix<uint8_t> m3(2, 2, { {3, 1} ,
+                                    {2, 4} });
+
+    agc::matrix<uint8_t> m4 = m2 * m3;
+    const bool ok02 = m4.size_rows() == 3;
+    const bool ok03 = m4.size_cols() == 2;
+    const bool ok04 = m4[1][1] == 12 && m4[1][2] == 14 &&
+                      m4[2][1] ==  3 && m4[2][2] ==  1 &&
+                      m4[3][1] == 22 && m4[3][2] == 24;
+
+    agc::matrix<uint8_t> m5(3, 3);
+    agc::matrix<uint8_t> m6(2, 3);
+    agc::matrix<uint8_t> m7(3, 2);
+    agc::matrix<uint8_t> m8(2, 2);
+
+    bool ok05 = false;
+    try { auto m9 = m5 * m5; ok05 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok06 = false;
+    try { auto m9 = m5 * m6; }
+    catch (const std::domain_error& e) { ok06 = std::string(e.what()) == e_msg; }
+
+    bool ok07 = false;
+    try { auto m9 = m5 * m7; ok07 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok08 = false;
+    try { auto m9 = m5 * m8; }
+    catch (const std::domain_error& e) { ok08 = std::string(e.what()) == e_msg; }
+
+    bool ok09 = false;
+    try { auto m9 = m6 * m5; ok09 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok10 = false;
+    try { auto m9 = m6 * m6; }
+    catch (const std::domain_error& e) { ok10 = std::string(e.what()) == e_msg; }
+
+    bool ok11 = false;
+    try { auto m9 = m6 * m7; ok11 = true; }
+    catch (const std::domain_error& e) {}
+    
+    bool ok12 = false;
+    try { auto m9 = m6 * m8; }
+    catch (const std::domain_error& e) { ok12 = std::string(e.what()) == e_msg; }
+
+    bool ok13 = false;
+    try { auto m9 = m7 * m5; }
+    catch (const std::domain_error& e) { ok13 = std::string(e.what()) == e_msg; }
+
+    bool ok14 = false;
+    try { auto m9 = m7 * m6; ok14 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok15 = false;
+    try { auto m9 = m7 * m7; }
+    catch (const std::domain_error& e) { ok15 = std::string(e.what()) == e_msg; }
+
+    bool ok16 = false;
+    try { auto m9 = m7 * m8; ok16 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok17 = false;
+    try { auto m9 = m8 * m5; }
+    catch (const std::domain_error& e) { ok17 = std::string(e.what()) == e_msg; }
+
+    bool ok18 = false;
+    try { auto m9 = m8 * m6; ok18 = true; }
+    catch (const std::domain_error& e) {}
+
+    bool ok19 = false;
+    try { auto m9 = m8 * m7; }
+    catch (const std::domain_error& e) { ok19 = std::string(e.what()) == e_msg; }
+
+    bool ok20 = false;
+    try { auto m9 = m8 * m8; ok20 = true; }
+    catch (const std::domain_error& e) {}
+
+    const bool ok = ok01 && ok02 && ok03 && ok04 && ok05 && ok06 && ok07 && ok08 && ok09 && ok10 &&
+                    ok11 && ok12 && ok13 && ok14 && ok15 && ok16 && ok17 && ok18 && ok19 && ok20;
     print_test_output("RunTest_Matrix_should_be_able_to_multiplication_assign", ok);
 }
 
@@ -822,7 +969,22 @@ void RunTest_Matrix_should_be_able_to_multiplication_assign()
 
 void RunTest_Matrix_should_be_able_to_division_assign()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix divison by zero is not allowed";
+
+    agc::matrix<uint8_t> m(3, 3, { {2,  4,  6} ,
+                                   {8, 10, 12} ,
+                                   {6,  4,  2} });
+    m /= 2;
+
+    const bool ok1 = m[1][1] == 1 && m[1][2] == 2 && m[1][3] == 3 &&
+                     m[2][1] == 4 && m[2][2] == 5 && m[2][3] == 6 &&
+                     m[3][1] == 3 && m[3][2] == 2 && m[3][3] == 1;
+
+    bool ok2 = false;
+    try { m /= 0; }
+    catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2;
     print_test_output("RunTest_Matrix_should_be_able_to_division_assign", ok);
 }
 
@@ -906,8 +1068,8 @@ int main()
     RunTest_Matrix_should_be_able_to_assign_copy(); // TODO
     RunTest_Matrix_should_be_able_to_assign_move(); // TODO
     RunTest_Matrix_should_be_able_to_compare();
-    RunTest_Matrix_should_be_able_to_compare_increment(); // TODO
-    RunTest_Matrix_should_be_able_to_compare_decrement(); // TODO
+    RunTest_Matrix_should_be_able_to_increment(); // TODO
+    RunTest_Matrix_should_be_able_to_decrement(); // TODO
     RunTest_Matrix_should_be_able_to_addition_assign(); // TODO
     RunTest_Matrix_should_be_able_to_subtraction_assign(); // TODO
     RunTest_Matrix_should_be_able_to_multiplication_assign(); // TODO
