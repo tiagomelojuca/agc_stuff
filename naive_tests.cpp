@@ -24,7 +24,7 @@ void RunTest_Matrix_should_be_able_to_construct()
 
 void RunTest_Matrix_should_be_able_to_get_size()
 {
-    agc::matrix<uint8_t> m(3, 7);
+    agc::matrix<int8_t> m(3, 7);
     const bool ok1 = m.size_rows() == 3;
     const bool ok2 = m.size_cols() == 7;
 
@@ -36,9 +36,9 @@ void RunTest_Matrix_should_be_able_to_get_size()
 
 void RunTest_Matrix_should_be_able_to_compare_sizes()
 {
-    agc::matrix<uint8_t> m1(3, 7);
-    agc::matrix<uint8_t> m2(3, 7);
-    agc::matrix<uint8_t> m3(7, 3);
+    agc::matrix<int8_t> m1(3, 7);
+    agc::matrix<int8_t> m2(3, 7);
+    agc::matrix<int8_t> m3(7, 3);
 
     const bool ok1 = m1.is_same_size(m2);
     const bool ok2 = !m1.is_same_size(m3);
@@ -51,10 +51,10 @@ void RunTest_Matrix_should_be_able_to_compare_sizes()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_empty()
 {
-    agc::matrix<uint8_t> m1(0, 0);
-    agc::matrix<uint8_t> m2(0, 1);
-    agc::matrix<uint8_t> m3(1, 0);
-    agc::matrix<uint8_t> m4(1, 1);
+    agc::matrix<int8_t> m1(0, 0);
+    agc::matrix<int8_t> m2(0, 1);
+    agc::matrix<int8_t> m3(1, 0);
+    agc::matrix<int8_t> m4(1, 1);
 
     const bool ok1 = m1.is_empty();
     const bool ok2 = m2.is_empty();
@@ -69,13 +69,13 @@ void RunTest_Matrix_should_be_able_to_check_if_is_empty()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_a_square_matrix()
 {
-    agc::matrix<uint8_t> m1(0, 0);
-    agc::matrix<uint8_t> m2(0, 1);
-    agc::matrix<uint8_t> m3(1, 0);
-    agc::matrix<uint8_t> m4(1, 1);
-    agc::matrix<uint8_t> m5(2, 2);
-    agc::matrix<uint8_t> m6(1, 2);
-    agc::matrix<uint8_t> m7(2, 1);
+    agc::matrix<int8_t> m1(0, 0);
+    agc::matrix<int8_t> m2(0, 1);
+    agc::matrix<int8_t> m3(1, 0);
+    agc::matrix<int8_t> m4(1, 1);
+    agc::matrix<int8_t> m5(2, 2);
+    agc::matrix<int8_t> m6(1, 2);
+    agc::matrix<int8_t> m7(2, 1);
 
     const bool ok1 = !m1.is_square_matrix();
     const bool ok2 = !m2.is_square_matrix();
@@ -93,13 +93,13 @@ void RunTest_Matrix_should_be_able_to_check_if_is_a_square_matrix()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_a_rect_matrix()
 {
-    agc::matrix<uint8_t> m1(0, 0);
-    agc::matrix<uint8_t> m2(0, 1);
-    agc::matrix<uint8_t> m3(1, 0);
-    agc::matrix<uint8_t> m4(1, 1);
-    agc::matrix<uint8_t> m5(2, 2);
-    agc::matrix<uint8_t> m6(1, 2);
-    agc::matrix<uint8_t> m7(2, 1);
+    agc::matrix<int8_t> m1(0, 0);
+    agc::matrix<int8_t> m2(0, 1);
+    agc::matrix<int8_t> m3(1, 0);
+    agc::matrix<int8_t> m4(1, 1);
+    agc::matrix<int8_t> m5(2, 2);
+    agc::matrix<int8_t> m6(1, 2);
+    agc::matrix<int8_t> m7(2, 1);
 
     const bool ok1 = !m1.is_rectangular_matrix();
     const bool ok2 = !m2.is_rectangular_matrix();
@@ -117,13 +117,13 @@ void RunTest_Matrix_should_be_able_to_check_if_is_a_rect_matrix()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_a_row_matrix()
 {
-    agc::matrix<uint8_t> m1(0, 0);
-    agc::matrix<uint8_t> m2(0, 1);
-    agc::matrix<uint8_t> m3(1, 0);
-    agc::matrix<uint8_t> m4(1, 1);
-    agc::matrix<uint8_t> m5(2, 2);
-    agc::matrix<uint8_t> m6(1, 2);
-    agc::matrix<uint8_t> m7(2, 1);
+    agc::matrix<int8_t> m1(0, 0);
+    agc::matrix<int8_t> m2(0, 1);
+    agc::matrix<int8_t> m3(1, 0);
+    agc::matrix<int8_t> m4(1, 1);
+    agc::matrix<int8_t> m5(2, 2);
+    agc::matrix<int8_t> m6(1, 2);
+    agc::matrix<int8_t> m7(2, 1);
 
     const bool ok1 = !m1.is_row_matrix();
     const bool ok2 = !m2.is_row_matrix();
@@ -141,13 +141,13 @@ void RunTest_Matrix_should_be_able_to_check_if_is_a_row_matrix()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_a_col_matrix()
 {
-    agc::matrix<uint8_t> m1(0, 0);
-    agc::matrix<uint8_t> m2(0, 1);
-    agc::matrix<uint8_t> m3(1, 0);
-    agc::matrix<uint8_t> m4(1, 1);
-    agc::matrix<uint8_t> m5(2, 2);
-    agc::matrix<uint8_t> m6(1, 2);
-    agc::matrix<uint8_t> m7(2, 1);
+    agc::matrix<int8_t> m1(0, 0);
+    agc::matrix<int8_t> m2(0, 1);
+    agc::matrix<int8_t> m3(1, 0);
+    agc::matrix<int8_t> m4(1, 1);
+    agc::matrix<int8_t> m5(2, 2);
+    agc::matrix<int8_t> m6(1, 2);
+    agc::matrix<int8_t> m7(2, 1);
 
     const bool ok1 = !m1.is_column_matrix();
     const bool ok2 = !m2.is_column_matrix();
@@ -165,9 +165,9 @@ void RunTest_Matrix_should_be_able_to_check_if_is_a_col_matrix()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_null_matrix()
 {
-    agc::matrix<uint8_t> m1(3, 3);
-    agc::matrix<uint8_t> m2(5, 5);
-    agc::matrix<uint8_t> m3(5, 5);
+    agc::matrix<int8_t> m1(3, 3);
+    agc::matrix<int8_t> m2(5, 5);
+    agc::matrix<int8_t> m3(5, 5);
     m3[4][5] = 1;
 
     bool m1_has_only_zeros = true;
@@ -202,53 +202,53 @@ void RunTest_Matrix_should_be_able_to_check_if_is_null_matrix()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_triangular_upper()
 {
-    agc::matrix<uint8_t> m01(3, 3, { {0, 0, 0} ,
-                                     {0, 0, 0} ,
-                                     {0, 0, 0} });
+    agc::matrix<int8_t> m01(3, 3, { {0, 0, 0} ,
+                                    {0, 0, 0} ,
+                                    {0, 0, 0} });
 
-    agc::matrix<uint8_t> m02(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m02(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m03(3, 3, { {1, 2, 3} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m03(3, 3, { {1, 2, 3} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m04(3, 3, { {1, 0, 3} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m04(3, 3, { {1, 0, 3} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m05(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m05(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m06(3, 3, { {1, 2, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m06(3, 3, { {1, 2, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m07(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m07(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m08(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {7, 0, 9} });
+    agc::matrix<int8_t> m08(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {7, 0, 9} });
 
-    agc::matrix<uint8_t> m09(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m09(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m10(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 8, 9} });
+    agc::matrix<int8_t> m10(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 8, 9} });
 
-    agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
-                                     {4, 5, 6} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m11(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m12(1, 1, { {1} });
+    agc::matrix<int8_t> m12(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m13(1, 2);
+    agc::matrix<int8_t> m13(1, 2);
 
     const bool ok01 = m01.is_triangular_upper_matrix();
     const bool ok02 = m02.is_triangular_upper_matrix();
@@ -274,53 +274,53 @@ void RunTest_Matrix_should_be_able_to_check_if_is_triangular_upper()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_triangular_lower()
 {
-    agc::matrix<uint8_t> m01(3, 3, { {0, 0, 0} ,
-                                     {0, 0, 0} ,
-                                     {0, 0, 0} });
+    agc::matrix<int8_t> m01(3, 3, { {0, 0, 0} ,
+                                    {0, 0, 0} ,
+                                    {0, 0, 0} });
 
-    agc::matrix<uint8_t> m02(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m02(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m03(3, 3, { {1, 2, 3} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m03(3, 3, { {1, 2, 3} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m04(3, 3, { {1, 0, 3} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m04(3, 3, { {1, 0, 3} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m05(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m05(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m06(3, 3, { {1, 2, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m06(3, 3, { {1, 2, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m07(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m07(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m08(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {7, 0, 9} });
+    agc::matrix<int8_t> m08(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {7, 0, 9} });
 
-    agc::matrix<uint8_t> m09(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m09(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m10(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 8, 9} });
+    agc::matrix<int8_t> m10(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 8, 9} });
 
-    agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
-                                     {4, 5, 6} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m11(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m12(1, 1, { {1} });
+    agc::matrix<int8_t> m12(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m13(1, 2);
+    agc::matrix<int8_t> m13(1, 2);
 
     const bool ok01 = m01.is_triangular_lower_matrix();
     const bool ok02 = m02.is_triangular_lower_matrix();
@@ -346,53 +346,53 @@ void RunTest_Matrix_should_be_able_to_check_if_is_triangular_lower()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_triangular()
 {
-    agc::matrix<uint8_t> m01(3, 3, { {0, 0, 0} ,
-                                     {0, 0, 0} ,
-                                     {0, 0, 0} });
+    agc::matrix<int8_t> m01(3, 3, { {0, 0, 0} ,
+                                    {0, 0, 0} ,
+                                    {0, 0, 0} });
 
-    agc::matrix<uint8_t> m02(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m02(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m03(3, 3, { {1, 2, 3} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m03(3, 3, { {1, 2, 3} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m04(3, 3, { {1, 0, 3} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m04(3, 3, { {1, 0, 3} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m05(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m05(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m06(3, 3, { {1, 2, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m06(3, 3, { {1, 2, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m07(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m07(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m08(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {7, 0, 9} });
+    agc::matrix<int8_t> m08(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {7, 0, 9} });
 
-    agc::matrix<uint8_t> m09(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m09(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m10(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 8, 9} });
+    agc::matrix<int8_t> m10(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 8, 9} });
 
-    agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
-                                     {4, 5, 6} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m11(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m12(1, 1, { {1} });
+    agc::matrix<int8_t> m12(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m13(1, 2);
+    agc::matrix<int8_t> m13(1, 2);
 
     const bool ok01 = m01.is_triangular_matrix();
     const bool ok02 = m02.is_triangular_matrix();
@@ -418,53 +418,53 @@ void RunTest_Matrix_should_be_able_to_check_if_is_triangular()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_diagonal()
 {
-    agc::matrix<uint8_t> m01(3, 3, { {0, 0, 0} ,
-                                     {0, 0, 0} ,
-                                     {0, 0, 0} });
+    agc::matrix<int8_t> m01(3, 3, { {0, 0, 0} ,
+                                    {0, 0, 0} ,
+                                    {0, 0, 0} });
 
-    agc::matrix<uint8_t> m02(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m02(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m03(3, 3, { {1, 2, 3} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m03(3, 3, { {1, 2, 3} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m04(3, 3, { {1, 0, 3} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m04(3, 3, { {1, 0, 3} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m05(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 6} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m05(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 6} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m06(3, 3, { {1, 2, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m06(3, 3, { {1, 2, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m07(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m07(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m08(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {7, 0, 9} });
+    agc::matrix<int8_t> m08(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {7, 0, 9} });
 
-    agc::matrix<uint8_t> m09(3, 3, { {1, 0, 0} ,
-                                     {4, 5, 0} ,
-                                     {0, 0, 9} });
+    agc::matrix<int8_t> m09(3, 3, { {1, 0, 0} ,
+                                    {4, 5, 0} ,
+                                    {0, 0, 9} });
 
-    agc::matrix<uint8_t> m10(3, 3, { {1, 0, 0} ,
-                                     {0, 5, 0} ,
-                                     {0, 8, 9} });
+    agc::matrix<int8_t> m10(3, 3, { {1, 0, 0} ,
+                                    {0, 5, 0} ,
+                                    {0, 8, 9} });
 
-    agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
-                                     {4, 5, 6} ,
-                                     {7, 8, 9} });
+    agc::matrix<int8_t> m11(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {7, 8, 9} });
 
-    agc::matrix<uint8_t> m12(1, 1, { {1} });
+    agc::matrix<int8_t> m12(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m13(1, 2);
+    agc::matrix<int8_t> m13(1, 2);
 
     const bool ok01 = m01.is_diagonal_matrix();
     const bool ok02 = m02.is_diagonal_matrix();
@@ -490,29 +490,29 @@ void RunTest_Matrix_should_be_able_to_check_if_is_diagonal()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_scalar()
 {
-    agc::matrix<uint8_t> m1(3, 3, { {0, 0, 0} ,
-                                    {0, 0, 0} ,
-                                    {0, 0, 0} });
+    agc::matrix<int8_t> m1(3, 3, { {0, 0, 0} ,
+                                   {0, 0, 0} ,
+                                   {0, 0, 0} });
 
-    agc::matrix<uint8_t> m2(3, 3, { {1, 0, 0} ,
-                                    {0, 1, 0} ,
-                                    {0, 0, 1} });
+    agc::matrix<int8_t> m2(3, 3, { {1, 0, 0} ,
+                                   {0, 1, 0} ,
+                                   {0, 0, 1} });
 
-    agc::matrix<uint8_t> m3(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
+    agc::matrix<int8_t> m3(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
 
-    agc::matrix<uint8_t> m4(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {3, 0, 3} });
+    agc::matrix<int8_t> m4(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {3, 0, 3} });
 
-    agc::matrix<uint8_t> m5(3, 3, { {3, 0, 3} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
+    agc::matrix<int8_t> m5(3, 3, { {3, 0, 3} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
 
-    agc::matrix<uint8_t> m6(1, 1, { {1} });
+    agc::matrix<int8_t> m6(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m7(1, 2);
+    agc::matrix<int8_t> m7(1, 2);
 
     const bool ok1 = m1.is_scalar_matrix();
     const bool ok2 = m2.is_scalar_matrix();
@@ -530,29 +530,29 @@ void RunTest_Matrix_should_be_able_to_check_if_is_scalar()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_identity()
 {
-    agc::matrix<uint8_t> m1(3, 3, { {0, 0, 0} ,
-                                    {0, 0, 0} ,
-                                    {0, 0, 0} });
+    agc::matrix<int8_t> m1(3, 3, { {0, 0, 0} ,
+                                   {0, 0, 0} ,
+                                   {0, 0, 0} });
 
-    agc::matrix<uint8_t> m2(3, 3, { {1, 0, 0} ,
-                                    {0, 1, 0} ,
-                                    {0, 0, 1} });
+    agc::matrix<int8_t> m2(3, 3, { {1, 0, 0} ,
+                                   {0, 1, 0} ,
+                                   {0, 0, 1} });
 
-    agc::matrix<uint8_t> m3(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
+    agc::matrix<int8_t> m3(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
 
-    agc::matrix<uint8_t> m4(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {3, 0, 3} });
+    agc::matrix<int8_t> m4(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {3, 0, 3} });
 
-    agc::matrix<uint8_t> m5(3, 3, { {3, 0, 3} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
+    agc::matrix<int8_t> m5(3, 3, { {3, 0, 3} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
 
-    agc::matrix<uint8_t> m6(1, 1, { {1} });
+    agc::matrix<int8_t> m6(1, 1, { {1} });
 
-    agc::matrix<uint8_t> m7(1, 2);
+    agc::matrix<int8_t> m7(1, 2);
 
     const bool ok1 = !m1.is_identity_matrix();
     const bool ok2 = m2.is_identity_matrix();
@@ -620,21 +620,21 @@ void RunTest_Matrix_should_be_able_to_transform_its_elements()
 
 void RunTest_Matrix_should_be_able_to_access_elements_safely()
 {
-    agc::matrix<uint8_t> m1(3, 3);
+    agc::matrix<int8_t> m1(3, 3);
 
     const std::string e_msg_row = "matrix row access out of boundary";
     const std::string e_msg_col = "matrix column access out of boundary";
     auto is_throwing_for_row = [&e_msg_row, &m1](int i, int j) -> bool
     {
         bool current_ok = false;
-        try { uint8_t value_out_of_range = m1[i][j]; }
+        try { int8_t value_out_of_range = m1[i][j]; }
         catch (const std::out_of_range& e) { current_ok = std::string(e.what()) == e_msg_row; }
         return current_ok;
     };
     auto is_throwing_for_col = [&e_msg_col, &m1](int i, int j) -> bool
     {
         bool current_ok = false;
-        try { uint8_t value_out_of_range = m1[i][j]; }
+        try { int8_t value_out_of_range = m1[i][j]; }
         catch (const std::out_of_range& e) { current_ok = std::string(e.what()) == e_msg_col; }
         return current_ok;
     };
@@ -688,59 +688,59 @@ void RunTest_Matrix_should_be_able_to_assign_move()
 
 void RunTest_Matrix_should_be_able_to_compare()
 {
-    const agc::matrix<uint8_t> m01(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m01(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m02(3, 3, { {0, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m02(3, 3, { {0, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m03(3, 3, { {1, 0, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m03(3, 3, { {1, 0, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m04(3, 3, { {1, 2, 0} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m04(3, 3, { {1, 2, 0} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m05(3, 3, { {1, 2, 3} ,
-                                           {0, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m05(3, 3, { {1, 2, 3} ,
+                                          {0, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m06(3, 3, { {1, 2, 3} ,
-                                           {4, 0, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m06(3, 3, { {1, 2, 3} ,
+                                          {4, 0, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m07(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 0} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m07(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 0} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m08(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {0, 8, 9} });
+    const agc::matrix<int8_t> m08(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {0, 8, 9} });
 
-    const agc::matrix<uint8_t> m09(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 0, 9} });
+    const agc::matrix<int8_t> m09(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 0, 9} });
 
-    const agc::matrix<uint8_t> m10(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 0} });
+    const agc::matrix<int8_t> m10(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 0} });
 
-    const agc::matrix<uint8_t> m11(3, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} ,
-                                           {7, 8, 9} });
+    const agc::matrix<int8_t> m11(3, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} ,
+                                          {7, 8, 9} });
 
-    const agc::matrix<uint8_t> m12(3, 2, { {1, 2} ,
-                                           {4, 5} ,
-                                           {7, 8} });
+    const agc::matrix<int8_t> m12(3, 2, { {1, 2} ,
+                                          {4, 5} ,
+                                          {7, 8} });
 
-    const agc::matrix<uint8_t> m13(2, 3, { {1, 2, 3} ,
-                                           {4, 5, 6} });
+    const agc::matrix<int8_t> m13(2, 3, { {1, 2, 3} ,
+                                          {4, 5, 6} });
 
-    const agc::matrix<uint8_t> m14(2, 2, { {1, 2} ,
-                                           {4, 5} });
+    const agc::matrix<int8_t> m14(2, 2, { {1, 2} ,
+                                          {4, 5} });
 
     const bool ok01 = !(m01 == m02);
     const bool ok02 = !(m01 == m03);
@@ -782,9 +782,9 @@ void RunTest_Matrix_should_be_able_to_compare()
 
 void RunTest_Matrix_should_be_able_to_increment()
 {
-    agc::matrix<uint8_t> m(3, 3, { {5, 5, 5} ,
-                                   {5, 5, 5} ,
-                                   {5, 5, 5} });
+    agc::matrix<int8_t> m(3, 3, { {5, 5, 5} ,
+                                  {5, 5, 5} ,
+                                  {5, 5, 5} });
     m++;
     ++m;
 
@@ -798,9 +798,9 @@ void RunTest_Matrix_should_be_able_to_increment()
 
 void RunTest_Matrix_should_be_able_to_decrement()
 {
-    agc::matrix<uint8_t> m(3, 3, { {5, 5, 5} ,
-                                   {5, 5, 5} ,
-                                   {5, 5, 5} });
+    agc::matrix<int8_t> m(3, 3, { {5, 5, 5} ,
+                                  {5, 5, 5} ,
+                                  {5, 5, 5} });
     m--;
     --m;
 
@@ -816,12 +816,12 @@ void RunTest_Matrix_should_be_able_to_addition_assign()
 {
     const std::string e_msg = "matrix addition must have same size";
 
-    agc::matrix<uint8_t> m1(3, 3, { {3, 0, 0} ,
-                                    {0, 3, 0} ,
-                                    {0, 0, 3} });
-    agc::matrix<uint8_t> m2(3, 3, { {1, 2, 3} ,
-                                    {4, 5, 6} ,
-                                    {3, 2, 1} });
+    agc::matrix<int8_t> m1(3, 3, { {3, 0, 0} ,
+                                   {0, 3, 0} ,
+                                   {0, 0, 3} });
+    agc::matrix<int8_t> m2(3, 3, { {1, 2, 3} ,
+                                   {4, 5, 6} ,
+                                   {3, 2, 1} });
     m1 += m2;
 
     const bool ok1 = m1[1][1] == 4 && m1[1][2] == 2 && m1[1][3] == 3 &&
@@ -829,7 +829,7 @@ void RunTest_Matrix_should_be_able_to_addition_assign()
                      m1[3][1] == 3 && m1[3][2] == 2 && m1[3][3] == 4;
 
     bool ok2 = false;
-    try { m1 += agc::matrix<uint8_t>(2, 2); }
+    try { m1 += agc::matrix<int8_t>(2, 2); }
     catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
 
     const bool ok = ok1 && ok2;
@@ -868,33 +868,33 @@ void RunTest_Matrix_should_be_able_to_multiplication_assign()
 {
     const std::string e_msg = "matrix multiplication requires numColumns(A) == numRows(B)";
 
-    agc::matrix<uint8_t> m1(3, 3, { {1, 2, 3} ,
-                                    {4, 5, 6} ,
-                                    {3, 2, 1} });
+    agc::matrix<int8_t> m1(3, 3, { {1, 2, 3} ,
+                                   {4, 5, 6} ,
+                                   {3, 2, 1} });
     m1 *= 2;
 
     const bool ok01 = m1[1][1] == 2 && m1[1][2] ==  4 && m1[1][3] ==  6 &&
                       m1[2][1] == 8 && m1[2][2] == 10 && m1[2][3] == 12 &&
                       m1[3][1] == 6 && m1[3][2] ==  4 && m1[3][3] ==  2;
 
-    agc::matrix<uint8_t> m2(3, 2, { {2, 3} ,
-                                    {1, 0} ,
-                                    {4, 5} });
+    agc::matrix<int8_t> m2(3, 2, { {2, 3} ,
+                                   {1, 0} ,
+                                   {4, 5} });
 
-    agc::matrix<uint8_t> m3(2, 2, { {3, 1} ,
-                                    {2, 4} });
+    agc::matrix<int8_t> m3(2, 2, { {3, 1} ,
+                                   {2, 4} });
 
-    agc::matrix<uint8_t> m4 = m2 * m3;
+    agc::matrix<int8_t> m4 = m2 * m3;
     const bool ok02 = m4.size_rows() == 3;
     const bool ok03 = m4.size_cols() == 2;
     const bool ok04 = m4[1][1] == 12 && m4[1][2] == 14 &&
                       m4[2][1] ==  3 && m4[2][2] ==  1 &&
                       m4[3][1] == 22 && m4[3][2] == 24;
 
-    agc::matrix<uint8_t> m5(3, 3);
-    agc::matrix<uint8_t> m6(2, 3);
-    agc::matrix<uint8_t> m7(3, 2);
-    agc::matrix<uint8_t> m8(2, 2);
+    agc::matrix<int8_t> m5(3, 3);
+    agc::matrix<int8_t> m6(2, 3);
+    agc::matrix<int8_t> m7(3, 2);
+    agc::matrix<int8_t> m8(2, 2);
 
     bool ok05 = false;
     try { auto m9 = m5 * m5; ok05 = true; }
@@ -971,9 +971,9 @@ void RunTest_Matrix_should_be_able_to_division_assign()
 {
     const std::string e_msg = "matrix divison by zero is not allowed";
 
-    agc::matrix<uint8_t> m(3, 3, { {2,  4,  6} ,
-                                   {8, 10, 12} ,
-                                   {6,  4,  2} });
+    agc::matrix<int8_t> m(3, 3, { {2,  4,  6} ,
+                                  {8, 10, 12} ,
+                                  {6,  4,  2} });
     m /= 2;
 
     const bool ok1 = m[1][1] == 1 && m[1][2] == 2 && m[1][3] == 3 &&
@@ -994,22 +994,22 @@ void RunTest_Matrix_should_be_able_to_times()
 {
     const std::string e_msg = "matrix times must have same size";
 
-    agc::matrix<uint8_t> m1(3, 3, { {1, 2, 3} ,
-                                    {4, 5, 6} ,
-                                    {3, 2, 1} });
+    agc::matrix<int8_t> m1(3, 3, { {1, 2, 3} ,
+                                   {4, 5, 6} ,
+                                   {3, 2, 1} });
 
-    agc::matrix<uint8_t> m2(3, 3, { {2, 1, 3} ,
-                                    {5, 4, 6} ,
-                                    {2, 3, 1} });
+    agc::matrix<int8_t> m2(3, 3, { {2, 1, 3} ,
+                                   {5, 4, 6} ,
+                                   {2, 3, 1} });
 
-    agc::matrix<uint8_t> m3 = m1.times(m2);
+    agc::matrix<int8_t> m3 = m1.times(m2);
 
     const bool ok1 = m3[1][1] ==  2 && m3[1][2] ==  2 && m3[1][3] ==  9 &&
                      m3[2][1] == 20 && m3[2][2] == 20 && m3[2][3] == 36 &&
                      m3[3][1] ==  6 && m3[3][2] ==  6 && m3[3][3] ==  1;
 
     bool ok2 = false;
-    try { m1.times(agc::matrix<uint8_t>(2, 2)); }
+    try { m1.times(agc::matrix<int8_t>(2, 2)); }
     catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
 
     const bool ok = ok1 && ok2;
@@ -1039,11 +1039,11 @@ void RunTest_Matrix_should_be_able_to_pow()
                      m3[3][1] == -2 && m3[3][2] == -14 && m3[3][3] == -2;
 
     bool ok3 = false;
-    try { agc::matrix<uint8_t>(3, 2).pow(1); }
+    try { agc::matrix<int8_t>(3, 2).pow(1); }
     catch (const std::domain_error& e) { ok3 = std::string(e.what()) == e_sqr_m_msg; }
 
     bool ok4 = false;
-    try { agc::matrix<uint8_t>(3, 3).pow(0); }
+    try { agc::matrix<int8_t>(3, 3).pow(0); }
     catch (const std::domain_error& e) { ok4 = std::string(e.what()) == e_inv_n_msg; }
 
     const bool ok = ok1 && ok2 && ok3 && ok4;
@@ -1070,8 +1070,8 @@ void RunTest_Matrix_should_be_able_to_get_identity()
 {
     const std::string e_msg = "matrix identity requires a square matrix";
 
-    agc::matrix<uint8_t> m1(1, 1);
-    agc::matrix<uint8_t> m2(3, 3);
+    agc::matrix<int8_t> m1(1, 1);
+    agc::matrix<int8_t> m2(3, 3);
     auto m3 = m1.identity();
     auto m4 = m2.identity();
 
@@ -1082,7 +1082,7 @@ void RunTest_Matrix_should_be_able_to_get_identity()
                      m4[3][1] == 0 && m4[3][2] == 0 && m4[3][3] == 1;
 
     bool ok3 = false;
-    try { agc::matrix<uint8_t>(3, 2).identity(); }
+    try { agc::matrix<int8_t>(3, 2).identity(); }
     catch (const std::domain_error& e) { ok3 = std::string(e.what()) == e_msg; }
 
     const bool ok = ok1 && ok2 && ok3;
@@ -1191,8 +1191,8 @@ int main()
     RunTest_Matrix_should_be_able_to_pow();
     RunTest_Matrix_should_be_able_to_transpose();
     RunTest_Matrix_should_be_able_to_get_identity();
-    RunTest_Matrix_should_be_able_to_check_if_is_symmetric(); // TODO
-    RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric(); // TODO
+    RunTest_Matrix_should_be_able_to_check_if_is_symmetric();
+    RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric();
     RunTest_Matrix_should_be_able_to_check_if_is_inverse(); // TODO
 
     print_tests_output();
