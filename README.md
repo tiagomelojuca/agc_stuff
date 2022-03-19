@@ -25,7 +25,7 @@ Just some work for college (Linear Algebra course)</br></br>
 - [ ] `int get_higher_column(const std::vector<std::vector<double>>& mtx) const;`
 </br></br>
 
-**3) Review potential precision problems due to IEE-754 at:**
+**3) Review potential precision problems due to IEEE-754 at:**
 - [ ] matrix::is_null_matrix
 - [ ] matrix::is_triangular_lower_matrix
 - [ ] matrix::is_triangular_upper_matrix
