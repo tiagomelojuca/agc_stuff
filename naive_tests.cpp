@@ -4,6 +4,7 @@
 
 #include "aecc.h"
 #include "agc.hpp"
+#include "agcdbg.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -1153,7 +1154,24 @@ void RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
 {
-    const bool ok = false;
+    agc::matrix<double> m1(2, 2, { {3, 4} ,
+                                   {1, 2} });
+    agc::matrix<double> m2(2, 2, { {   1,  -2} ,
+                                   {-0.5, 1.5} });
+
+    agc::matrix<int8_t> m3(3, 3, { {1, 2, 3} ,
+                                   {0, 1, 4} ,
+                                   {5, 6, 0} });
+    agc::matrix<int8_t> m4(3, 3, { {-24,  18,  5} ,
+                                   { 20, -15, -4} ,
+                                   { -5,   4,  1} });
+
+    const bool ok1 = m1.is_inverse(m2);
+    const bool ok2 = !m1.is_inverse(++m2);
+    const bool ok3 = m3.is_inverse(m4);
+    const bool ok4 = !m3.is_inverse(--m4);
+
+    const bool ok = ok1 && ok2 && ok3 && ok4;
     print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_inverse", ok);
 }
 
@@ -1193,7 +1211,7 @@ int main()
     RunTest_Matrix_should_be_able_to_get_identity();
     RunTest_Matrix_should_be_able_to_check_if_is_symmetric();
     RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric();
-    RunTest_Matrix_should_be_able_to_check_if_is_inverse(); // TODO
+    RunTest_Matrix_should_be_able_to_check_if_is_inverse();
 
     print_tests_output();
 
