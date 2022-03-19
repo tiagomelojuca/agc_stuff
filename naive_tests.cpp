@@ -673,7 +673,18 @@ void RunTest_Matrix_should_be_able_to_access_elements_safely()
 
 void RunTest_Matrix_should_be_able_to_assign_copy()
 {
-    const bool ok = false;
+    const agc::matrix<int8_t> m1(2, 3, { {11, 12, 13},
+                                         {21, 22, 23} });
+    auto m2 = m1;
+
+    const bool ok1 = m1.size_rows() == 2 && m1.size_cols() == 3;
+    const bool ok2 = m2.size_rows() == m1.size_rows() && m2.size_cols() == m1.size_cols();
+    const bool ok3 = m1[1][1] == 11 && m1[1][2] == 12 && m1[1][3] == 13 &&
+                     m1[2][1] == 21 && m1[2][2] == 22 && m1[2][3] == 23;
+    const bool ok4 = m2[1][1] == 11 && m2[1][2] == 12 && m2[1][3] == 13 &&
+                     m2[2][1] == 21 && m2[2][2] == 22 && m2[2][3] == 23;
+
+    const bool ok = ok1 && ok2 && ok3 && ok4;
     print_test_output("RunTest_Matrix_should_be_able_to_assign_copy", ok);
 }
 
@@ -681,7 +692,21 @@ void RunTest_Matrix_should_be_able_to_assign_copy()
 
 void RunTest_Matrix_should_be_able_to_assign_move()
 {
-    const bool ok = false;
+    agc::matrix<int8_t> m_tmp(2, 3, { {11, 12, 13},
+                                      {21, 22, 23} });
+    auto m1 = std::move(m_tmp);
+
+    const bool ok1 = m1[1][1] == 11 && m1[1][2] == 12 && m1[1][3] == 13 &&
+                     m1[2][1] == 21 && m1[2][2] == 22 && m1[2][3] == 23;
+    const bool ok2 = m1.size_rows() == 2 && m1.size_cols() == 3;
+    const bool ok3 = m_tmp.size_rows() == 0 && m_tmp.size_cols() == 0;
+
+    auto m2 = agc::matrix<int8_t>(2, 3, { {11, 12, 13},
+                                          {21, 22, 23} });
+    const bool ok4 = m2[1][1] == 11 && m2[1][2] == 12 && m2[1][3] == 13 &&
+                     m2[2][1] == 21 && m2[2][2] == 22 && m2[2][3] == 23;
+
+    const bool ok = ok1 && ok2 && ok3 && ok4;
     print_test_output("RunTest_Matrix_should_be_able_to_assign_move", ok);
 }
 
@@ -1196,8 +1221,8 @@ int main()
     RunTest_Matrix_should_be_able_to_check_if_is_identity();
     RunTest_Matrix_should_be_able_to_transform_its_elements();
     RunTest_Matrix_should_be_able_to_access_elements_safely();
-    RunTest_Matrix_should_be_able_to_assign_copy(); // TODO
-    RunTest_Matrix_should_be_able_to_assign_move(); // TODO
+    RunTest_Matrix_should_be_able_to_assign_copy();
+    RunTest_Matrix_should_be_able_to_assign_move();
     RunTest_Matrix_should_be_able_to_compare();
     RunTest_Matrix_should_be_able_to_increment();
     RunTest_Matrix_should_be_able_to_decrement();
