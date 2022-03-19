@@ -3,11 +3,12 @@ Just some work for college (Linear Algebra course)</br></br>
 
 ### TODO:
 
-1) Impl following:
+**1) Impl following:**
 - [ ] Determinant calc
 - [ ] Gauss-Jordan solver
+</br></br>
 
-2) Tests for throwing at:
+**2) Tests for throwing at:**
 - [ ] `explicit matrix(int _r, int _c);`
 - [ ] `explicit matrix(int _r, int _c, const std::vector<std::vector<T>>& _elems);`
 - [ ] `explicit vector(int _size) : vec_size(_size);`
@@ -22,15 +23,17 @@ Just some work for college (Linear Algebra course)</br></br>
 - [ ] `matrix<double> gauss() const;`
 - [ ] `void swap_row(matrix<double>& m, int r1, int r2) const;`
 - [ ] `int get_higher_column(const std::vector<std::vector<double>>& mtx) const;`
+</br></br>
 
-3) Review potential precision problems due to IEE-754 at:
+**3) Review potential precision problems due to IEE-754 at:**
 - [ ] matrix::is_null_matrix
 - [ ] matrix::is_triangular_lower_matrix
 - [ ] matrix::is_triangular_upper_matrix
 - [ ] matrix::is_scalar_matrix
 - [ ] matrix::is_identity_matrix
 - [ ] matrix::operator== && matrix::operator!=
+</br></br>
 
-4) Review potential precision problems due to hard coded values at:
+**4) Review potential problems due to hard coded values at:**
 - [ ] matrix::identity (?)
 - [ ] matrix::is_skew_symmetric (?)
