@@ -1093,7 +1093,29 @@ void RunTest_Matrix_should_be_able_to_get_identity()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_symmetric()
 {
-    const bool ok = false;
+    agc::matrix<int8_t> m1(3, 3, { {1, 7, 3} ,
+                                   {7, 4, 5} ,
+                                   {3, 5, 0} });
+
+    agc::matrix<int8_t> m2(3, 3, { {1, 0, 0} ,
+                                   {0, 1, 0} ,
+                                   {0, 0, 1} });
+
+    agc::matrix<int8_t> m3(1, 1, { {1} });
+
+    agc::matrix<int8_t> m4(1, 1);
+
+    agc::matrix<int8_t> m5(3, 3, { {1, 7, 3} ,
+                                   {6, 4, 5} ,
+                                   {3, 5, 0} });
+
+    const bool ok1 = m1.is_symmetric();
+    const bool ok2 = m2.is_symmetric();
+    const bool ok3 = m3.is_symmetric();
+    const bool ok4 = m4.is_symmetric();
+    const bool ok5 = !m5.is_symmetric();
+
+    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5;
     print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_symmetric", ok);
 }
 
@@ -1101,7 +1123,29 @@ void RunTest_Matrix_should_be_able_to_check_if_is_symmetric()
 
 void RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric()
 {
-    const bool ok = false;
+    agc::matrix<int8_t> m1(3, 3, { { 0, 2, -45} ,
+                                   {-2, 0,  -4} ,
+                                   {45, 4,   0} });
+
+    agc::matrix<int8_t> m2(3, 3, { {1, 0, 0} ,
+                                   {0, 1, 0} ,
+                                   {0, 0, 1} });
+
+    agc::matrix<int8_t> m3(1, 1, { {1} });
+
+    agc::matrix<int8_t> m4(1, 1);
+
+    agc::matrix<int8_t> m5(3, 3, { {1, 7, 3} ,
+                                   {6, 4, 5} ,
+                                   {3, 5, 0} });
+
+    const bool ok1 = m1.is_skew_symmetric();
+    const bool ok2 = !m2.is_skew_symmetric();
+    const bool ok3 = !m3.is_skew_symmetric();
+    const bool ok4 = m4.is_skew_symmetric();
+    const bool ok5 = !m5.is_skew_symmetric();
+
+    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5;
     print_test_output("RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric", ok);
 }
 
