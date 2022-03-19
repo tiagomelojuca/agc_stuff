@@ -1054,7 +1054,13 @@ void RunTest_Matrix_should_be_able_to_pow()
 
 void RunTest_Matrix_should_be_able_to_transpose()
 {
-    const bool ok = false;
+    agc::matrix<int8_t> m1(3, 2, { {1,  2} ,
+                                   {0, -1} ,
+                                   {1,  4} });
+    auto m2 = m1.transpose();
+
+    const bool ok = m2[1][1] == 1 && m2[1][2] ==  0 && m2[1][3] == 1 &&
+                    m2[2][1] == 2 && m2[2][2] == -1 && m2[2][3] == 4;
     print_test_output("RunTest_Matrix_should_be_able_to_transpose", ok);
 }
 
@@ -1062,7 +1068,24 @@ void RunTest_Matrix_should_be_able_to_transpose()
 
 void RunTest_Matrix_should_be_able_to_get_identity()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix identity requires a square matrix";
+
+    agc::matrix<uint8_t> m1(1, 1);
+    agc::matrix<uint8_t> m2(3, 3);
+    auto m3 = m1.identity();
+    auto m4 = m2.identity();
+
+    const bool ok1 = m3[1][1] == 1;
+
+    const bool ok2 = m4[1][1] == 1 && m4[1][2] == 0 && m4[1][3] == 0 &&
+                     m4[2][1] == 0 && m4[2][2] == 1 && m4[2][3] == 0 &&
+                     m4[3][1] == 0 && m4[3][2] == 0 && m4[3][3] == 1;
+
+    bool ok3 = false;
+    try { agc::matrix<uint8_t>(3, 2).identity(); }
+    catch (const std::domain_error& e) { ok3 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2 && ok3;
     print_test_output("RunTest_Matrix_should_be_able_to_get_identity", ok);
 }
 
@@ -1114,16 +1137,16 @@ int main()
     RunTest_Matrix_should_be_able_to_assign_copy(); // TODO
     RunTest_Matrix_should_be_able_to_assign_move(); // TODO
     RunTest_Matrix_should_be_able_to_compare();
-    RunTest_Matrix_should_be_able_to_increment(); // TODO
-    RunTest_Matrix_should_be_able_to_decrement(); // TODO
-    RunTest_Matrix_should_be_able_to_addition_assign(); // TODO
-    RunTest_Matrix_should_be_able_to_subtraction_assign(); // TODO
-    RunTest_Matrix_should_be_able_to_multiplication_assign(); // TODO
-    RunTest_Matrix_should_be_able_to_division_assign(); // TODO
-    RunTest_Matrix_should_be_able_to_times(); // TODO
-    RunTest_Matrix_should_be_able_to_pow(); // TODO
-    RunTest_Matrix_should_be_able_to_transpose(); // TODO
-    RunTest_Matrix_should_be_able_to_get_identity(); // TODO
+    RunTest_Matrix_should_be_able_to_increment();
+    RunTest_Matrix_should_be_able_to_decrement();
+    RunTest_Matrix_should_be_able_to_addition_assign();
+    RunTest_Matrix_should_be_able_to_subtraction_assign();
+    RunTest_Matrix_should_be_able_to_multiplication_assign();
+    RunTest_Matrix_should_be_able_to_division_assign();
+    RunTest_Matrix_should_be_able_to_times();
+    RunTest_Matrix_should_be_able_to_pow();
+    RunTest_Matrix_should_be_able_to_transpose();
+    RunTest_Matrix_should_be_able_to_get_identity();
     RunTest_Matrix_should_be_able_to_check_if_is_symmetric(); // TODO
     RunTest_Matrix_should_be_able_to_check_if_is_skew_symmetric(); // TODO
     RunTest_Matrix_should_be_able_to_check_if_is_inverse(); // TODO
