@@ -673,8 +673,8 @@ void RunTest_Matrix_should_be_able_to_access_elements_safely()
 
 void RunTest_Matrix_should_be_able_to_assign_copy()
 {
-    const agc::matrix<int8_t> m1(2, 3, { {11, 12, 13},
-                                         {21, 22, 23} });
+    agc::matrix<int8_t> m1(2, 3, { {11, 12, 13},
+                                   {21, 22, 23} });
     auto m2 = m1;
 
     const bool ok1 = m1.size_rows() == 2 && m1.size_cols() == 3;
