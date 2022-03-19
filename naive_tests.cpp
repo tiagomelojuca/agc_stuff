@@ -992,7 +992,27 @@ void RunTest_Matrix_should_be_able_to_division_assign()
 
 void RunTest_Matrix_should_be_able_to_times()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix times must have same size";
+
+    agc::matrix<uint8_t> m1(3, 3, { {1, 2, 3} ,
+                                    {4, 5, 6} ,
+                                    {3, 2, 1} });
+
+    agc::matrix<uint8_t> m2(3, 3, { {2, 1, 3} ,
+                                    {5, 4, 6} ,
+                                    {2, 3, 1} });
+
+    agc::matrix<uint8_t> m3 = m1.times(m2);
+
+    const bool ok1 = m3[1][1] ==  2 && m3[1][2] ==  2 && m3[1][3] ==  9 &&
+                     m3[2][1] == 20 && m3[2][2] == 20 && m3[2][3] == 36 &&
+                     m3[3][1] ==  6 && m3[3][2] ==  6 && m3[3][3] ==  1;
+
+    bool ok2 = false;
+    try { m1.times(agc::matrix<uint8_t>(2, 2)); }
+    catch (const std::domain_error& e) { ok2 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2;
     print_test_output("RunTest_Matrix_should_be_able_to_times", ok);
 }
 
@@ -1000,7 +1020,33 @@ void RunTest_Matrix_should_be_able_to_times()
 
 void RunTest_Matrix_should_be_able_to_pow()
 {
-    const bool ok = false;
+    const std::string e_sqr_m_msg = "matrix pow requires a square matrix";
+    const std::string e_inv_n_msg = "matrix pow requires n >= 1";
+
+    agc::matrix<int8_t> m1(3, 3, { {1,  2,  3} ,
+                                   {0, -1, -2} ,
+                                   {1,  4,  1} });
+
+    auto m2 = m1.pow(1);
+    auto m3 = m1.pow(3);
+
+    const bool ok1 = m2[1][1] == 1 && m2[1][2] ==  2 && m2[1][3] ==  3 &&
+                     m2[2][1] == 0 && m2[2][2] == -1 && m2[2][3] == -2 &&
+                     m2[3][1] == 1 && m2[3][2] ==  4 && m2[3][3] ==  1;
+
+    const bool ok2 = m3[1][1] ==  6 && m3[1][2] ==  4 && m3[1][3] == -10 &&
+                     m3[2][1] == -2 && m3[2][2] ==  3 && m3[2][3] ==   8 &&
+                     m3[3][1] == -2 && m3[3][2] == -14 && m3[3][3] == -2;
+
+    bool ok3 = false;
+    try { agc::matrix<uint8_t>(3, 2).pow(1); }
+    catch (const std::domain_error& e) { ok3 = std::string(e.what()) == e_sqr_m_msg; }
+
+    bool ok4 = false;
+    try { agc::matrix<uint8_t>(3, 3).pow(0); }
+    catch (const std::domain_error& e) { ok4 = std::string(e.what()) == e_inv_n_msg; }
+
+    const bool ok = ok1 && ok2 && ok3 && ok4;
     print_test_output("RunTest_Matrix_should_be_able_to_pow", ok);
 }
 
