@@ -17,7 +17,41 @@ void print_tests_output();
 
 void RunTest_Matrix_should_be_able_to_construct()
 {
-    const bool ok = false;
+    const std::string e_msg = "matrix size cannot be negative";
+
+    agc::matrix<int8_t> m1(3, 3);
+    const bool ok1 = m1[1][1] == 0 && m1[1][2] == 0 && m1[1][3] == 0 &&
+                     m1[2][1] == 0 && m1[2][2] == 0 && m1[2][3] == 0 &&
+                     m1[3][1] == 0 && m1[3][2] == 0 && m1[3][3] == 0;
+
+    agc::matrix<int8_t> m2(3, 3, { {11, 12, 13},
+                                   {21, 22, 23},
+                                   {31, 32, 33} });
+    const bool ok2 = m2[1][1] == 11 && m2[1][2] == 12 && m2[1][3] == 13 &&
+                     m2[2][1] == 21 && m2[2][2] == 22 && m2[2][3] == 23 &&
+                     m2[3][1] == 31 && m2[3][2] == 32 && m2[3][3] == 33;
+
+    agc::matrix<int8_t> m3(m2);
+    const bool ok3 = m3[1][1] == 11 && m3[1][2] == 12 && m3[1][3] == 13 &&
+                     m3[2][1] == 21 && m3[2][2] == 22 && m3[2][3] == 23 &&
+                     m3[3][1] == 31 && m3[3][2] == 32 && m3[3][3] == 33;
+
+    agc::matrix<int8_t> m4(std::move(m3));
+    const bool ok4 = m4[1][1] == 11 && m4[1][2] == 12 && m4[1][3] == 13 &&
+                     m4[2][1] == 21 && m4[2][2] == 22 && m4[2][3] == 23 &&
+                     m4[3][1] == 31 && m4[3][2] == 32 && m4[3][3] == 33 &&
+                     m4.size_rows() == 3 && m4.size_cols() == 3 &&
+                     m3.size_rows() == 0 && m3.size_cols() == 0;
+
+    bool ok5 = false;
+    try { agc::matrix<int8_t>(-1, 0); }
+    catch (const std::invalid_argument& e) { ok5 = std::string(e.what()) == e_msg; }
+
+    bool ok6 = false;
+    try { agc::matrix<int8_t>(0, -1); }
+    catch (const std::invalid_argument& e) { ok6 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2 && ok3 && ok4 && ok5 && ok6;
     print_test_output("RunTest_Matrix_should_be_able_to_construct", ok);
 }
 
@@ -1204,7 +1238,7 @@ void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
 
 int main()
 {
-    RunTest_Matrix_should_be_able_to_construct(); // TODO
+    RunTest_Matrix_should_be_able_to_construct();
     RunTest_Matrix_should_be_able_to_get_size();
     RunTest_Matrix_should_be_able_to_compare_sizes();
     RunTest_Matrix_should_be_able_to_check_if_is_empty();
