@@ -585,28 +585,86 @@ public:
     {
         return (*this) * other == this->identity();
     }
-    double det()
-    {
-        matrix<double> a = this->get_as_double_matrix();
 
-        return 0.0;
-    }
-
-private:
-    matrix<double> get_as_double_matrix()
+    double det() const
     {
-        matrix<double> a(rows, cols);
+        if (!is_square_matrix())
+        {
+            throw std::domain_error("matrix det requires a square matrix");
+        }
+
+        // convert matrix of T to matrix of double
+        matrix<double> g(rows, cols);
         for (int i = 1; i <= rows; i++)
         {
             for (int j = 1; j <= cols; j++)
             {
-                a[i][j] = (*this)[i][j];
+                g[i][j] = (*this)[i][j];
             }
         }
 
-        return a;
+        // order rows by number of zeros at left until first non-zero element
+        std::vector<std::pair<int, int>> ids_counts;
+        for (int i = 1; i <= rows; i++)
+        {
+            int count_zeros = 0;
+            for (int j = 1; j <= cols; j++)
+            {
+                if (g[i][j] != 0.0)
+                {
+                    break;
+                }
+
+                count_zeros++;
+            }
+            std::pair<int, int> id_count = std::make_pair(i, count_zeros);
+            ids_counts.push_back(id_count);
+        }
+        std::sort(ids_counts.begin(), ids_counts.end(), [](auto&& p1, auto&& p2) {
+            return p1.second < p2.second;
+        });
+
+        matrix<double> ordered_mtx(rows, cols);
+        for (int i = 1; i <= rows; i++)
+        {
+            for (int j = 1; j <= cols; j++)
+            {
+                const int idx_src_mtx = ids_counts[i - 1].first;
+                ordered_mtx[i][j] = g[idx_src_mtx][j];
+            }
+        }
+        g = ordered_mtx;
+
+        // perform row reduction
+        for (int i = 1; i <= rows - 1; i++)
+        {
+            const double current_diagonal_element = g[i][i];
+            if (current_diagonal_element == 0.0)
+            {
+                throw std::domain_error("reached a division by zero");
+            }
+
+            for (int j = i + 1; j <= rows; j++)
+            {
+                const double ratio = g[j][i] / current_diagonal_element;
+                for (int k = 1; k <= cols; k++)
+                {
+                    g[j][k] -= ratio * g[i][k];
+                }
+            }
+        }
+
+        // calc det by diagonal, since now it's a triangular upper
+        double det = 1.0;
+        for (int i = 1; i <= rows; i++)
+        {
+            det *= g[i][i];
+        }
+
+        return det;
     }
 
+private:
     std::vector<matrix_row> mtx;
     int rows;
     int cols;

@@ -1238,6 +1238,8 @@ void RunTest_Matrix_should_be_able_to_check_if_is_inverse()
 
 void RunTest_Matrix_should_be_able_to_calc_determinant()
 {
+    const std::string e_msg = "matrix det requires a square matrix";
+
     agc::matrix<double> m1(2, 2, { {3, 2} ,
                                    {1, 4} });
     const bool ok1 = m1.det() == 10.0;
@@ -1252,7 +1254,11 @@ void RunTest_Matrix_should_be_able_to_calc_determinant()
                                    {2, 2, 1} });
     const bool ok3 = m3.det() == -6.0;
 
-    const bool ok = ok1 && ok2 && ok3;
+    bool ok4 = false;
+    try { agc::matrix<int8_t>(3, 2).det(); }
+    catch (const std::domain_error& e) { ok4 = std::string(e.what()) == e_msg; }
+
+    const bool ok = ok1 && ok2 && ok3 && ok4;
     print_test_output("RunTest_Matrix_should_be_able_to_calc_determinant", ok);
 }
 
