@@ -4,13 +4,10 @@ Just some work for college (Linear Algebra course)</br></br>
 ### TODO:
 
 **1) Impl following:**
-- [ ] Determinant calc
 - [ ] Gauss-Jordan solver
 </br></br>
 
 **2) Tests for throwing at:**
-- [ ] `explicit matrix(int _r, int _c);`
-- [ ] `explicit matrix(int _r, int _c, const std::vector<std::vector<T>>& _elems);`
 - [ ] `explicit vector(int _size) : vec_size(_size);`
 - [ ] `explicit vector(int _size, const std::vector<T>& _elements) : vec_size(_size);`
 - [ ] `void transform(int idx_begin, int idx_end, const vector& other, std::function<T(T, T)> binary_op);`
@@ -32,8 +29,10 @@ Just some work for college (Linear Algebra course)</br></br>
 - [ ] matrix::is_scalar_matrix
 - [ ] matrix::is_identity_matrix
 - [ ] matrix::operator== && matrix::operator!=
+- [ ] matrix::det
 </br></br>
 
 **4) Review potential problems due to hard coded values at:**
 - [ ] matrix::identity (?)
 - [ ] matrix::is_skew_symmetric (?)
+- [ ] matrix::det
