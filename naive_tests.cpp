@@ -1245,12 +1245,12 @@ void RunTest_Matrix_should_be_able_to_calc_determinant()
     agc::matrix<int8_t> m2(3, 3, { {2, -3,  1} ,
                                    {2,  0, -1} ,
                                    {1,  4,  5} });
-    const bool ok2 = m1.det() == 49.0;
+    const bool ok2 = m2.det() == 49.0;
 
     agc::matrix<int8_t> m3(3, 3, { {1, 2, 4} ,
                                    {3, 4, 2} ,
                                    {2, 2, 1} });
-    const bool ok3 = m1.det() == -6.0;
+    const bool ok3 = m3.det() == -6.0;
 
     const bool ok = ok1 && ok2 && ok3;
     print_test_output("RunTest_Matrix_should_be_able_to_calc_determinant", ok);
