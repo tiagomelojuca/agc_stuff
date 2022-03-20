@@ -70,6 +70,12 @@ public:
         {
             row = std::move(_row);
         }
+        void swap(matrix_row& other)
+        {
+            std::vector<T> tmp(std::move(this->row));
+            this->row = std::move(other.row);
+            other.row = std::move(tmp);
+        }
 
         T& operator[](int idx)
         {
@@ -586,79 +592,75 @@ public:
         return (*this) * other == this->identity();
     }
 
-    double det() const
+    double det(const double tol = 0.01) const
     {
         if (!is_square_matrix())
         {
             throw std::domain_error("matrix det requires a square matrix");
         }
 
-        // convert matrix of T to matrix of double
-        matrix<double> g(rows, cols);
-        for (int i = 1; i <= rows; i++)
+        const int mtx_size = rows;
+        matrix<double> A(mtx_size, mtx_size);
+        for (int i = 1; i <= mtx_size; i++)
         {
-            for (int j = 1; j <= cols; j++)
+            for (int j = 1; j <= mtx_size; j++)
             {
-                g[i][j] = (*this)[i][j];
+                A[i][j] = (*this)[i][j];
             }
         }
 
-        // order rows by number of zeros at left until first non-zero element
-        std::vector<std::pair<int, int>> ids_counts;
-        for (int i = 1; i <= rows; i++)
+        const int pvec_size = mtx_size + 1;
+        matrix<int> P(pvec_size, 1);
+        for (int i = 1; i <= pvec_size; i++)
         {
-            int count_zeros = 0;
-            for (int j = 1; j <= cols; j++)
+            P[i][1] = i;
+        }
+
+        for (int i = 1; i <= mtx_size; i++) {
+            double max_val = 0.0;
+            int idx_max_val = i;
+
+            for (int j = i; j <= mtx_size; j++)
             {
-                if (g[i][j] != 0.0)
-                {
-                    break;
+                const double abs_val = A[j][i] >= 0 ? A[j][i] : -A[j][i];
+                if (abs_val > max_val)
+                { 
+                    max_val = abs_val;
+                    idx_max_val = j;
                 }
-
-                count_zeros++;
-            }
-            std::pair<int, int> id_count = std::make_pair(i, count_zeros);
-            ids_counts.push_back(id_count);
-        }
-        std::sort(ids_counts.begin(), ids_counts.end(), [](auto&& p1, auto&& p2) {
-            return p1.second < p2.second;
-        });
-
-        matrix<double> ordered_mtx(rows, cols);
-        for (int i = 1; i <= rows; i++)
-        {
-            for (int j = 1; j <= cols; j++)
-            {
-                const int idx_src_mtx = ids_counts[i - 1].first;
-                ordered_mtx[i][j] = g[idx_src_mtx][j];
-            }
-        }
-        g = ordered_mtx;
-
-        // perform row reduction
-        for (int i = 1; i <= rows - 1; i++)
-        {
-            const double current_diagonal_element = g[i][i];
-            if (current_diagonal_element == 0.0)
-            {
-                throw std::domain_error("reached a division by zero");
             }
 
-            for (int j = i + 1; j <= rows; j++)
+            if (max_val < tol)
             {
-                const double ratio = g[j][i] / current_diagonal_element;
-                for (int k = 1; k <= cols; k++)
+                return 0.0;
+            }
+
+            if (idx_max_val != i) {
+                const int tmp = P[i][1];
+                P[i][1] = P[idx_max_val][1];
+                P[idx_max_val][1] = tmp;
+                A[i].swap(A[idx_max_val]);
+                P[pvec_size][1]++;
+            }
+
+            for (int j = i + 1; j <= mtx_size; j++) {
+                A[j][i] /= A[i][i];
+                for (int k = i + 1; k <= mtx_size; k++)
                 {
-                    g[j][k] -= ratio * g[i][k];
+                    A[j][k] -= A[j][i] * A[i][k];
                 }
             }
         }
 
-        // calc det by diagonal, since now it's a triangular upper
-        double det = 1.0;
-        for (int i = 1; i <= rows; i++)
+        double det = A[1][1];
+        for (int i = 2; i <= mtx_size; i++)
         {
-            det *= g[i][i];
+            det *= A[i][i];
+        }
+
+        if ((P[pvec_size][1] - pvec_size) % 2 != 0)
+        {
+            det *= -1;
         }
 
         return det;

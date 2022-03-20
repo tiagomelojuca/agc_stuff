@@ -1240,25 +1240,64 @@ void RunTest_Matrix_should_be_able_to_calc_determinant()
 {
     const std::string e_msg = "matrix det requires a square matrix";
 
-    agc::matrix<double> m1(2, 2, { {3, 2} ,
-                                   {1, 4} });
-    const bool ok1 = m1.det() == 10.0;
+    auto soft_compare = [](double output, const char* expected) -> bool {
+        const std::string src = std::to_string(output);
+        std::string dst = "";
+        for (char c : src) { if (c == '.') { break; } dst += c; }
 
-    agc::matrix<int8_t> m2(3, 3, { {2, -3,  1} ,
-                                   {2,  0, -1} ,
-                                   {1,  4,  5} });
-    const bool ok2 = m2.det() == 49.0;
+        return dst == expected;
+    };
 
-    agc::matrix<int8_t> m3(3, 3, { {1, 2, 4} ,
-                                   {3, 4, 2} ,
-                                   {2, 2, 1} });
-    const bool ok3 = m3.det() == -6.0;
+    agc::matrix<double> m01(2, 2, { {3, 2} ,
+                                    {1, 4} });
+    const bool ok01 = soft_compare(m01.det(), "10");
 
-    bool ok4 = false;
+    agc::matrix<int8_t> m02(3, 3, { {2, -3,  1} ,
+                                    {2,  0, -1} ,
+                                    {1,  4,  5} });
+    const bool ok02 = soft_compare(m02.det(), "49");
+
+    agc::matrix<int8_t> m03(3, 3, { {1, 2, 4} ,
+                                    {3, 4, 2} ,
+                                    {2, 2, 1} });
+    const bool ok03 = soft_compare(m03.det(), "-6");
+
+    agc::matrix<int8_t> m04(3, 3, { {1, 2, 4} ,
+                                    {1, 2, 2} ,
+                                    {2, 2, 1} });
+    const bool ok04 = soft_compare(m04.det(), "-4");
+
+    agc::matrix<int8_t> m05(3, 3, { {0, 1, 1} ,
+                                    {0, 1, 1} ,
+                                    {0, 1, 1} });
+    const bool ok05 = soft_compare(m05.det(), "0");
+
+    agc::matrix<int8_t> m06(3, 3, { {1, 0, 1} ,
+                                    {1, 0, 1} ,
+                                    {1, 0, 1} });
+    const bool ok06 = soft_compare(m06.det(), "0");
+
+    agc::matrix<int8_t> m07(3, 3, { {0, 0, 0} ,
+                                    {1, 1, 1} ,
+                                    {1, 1, 1} });
+    const bool ok07 = soft_compare(m07.det(), "0");
+
+    agc::matrix<int8_t> m08(3, 3, { {1, 1, 1} ,
+                                    {0, 0, 0} ,
+                                    {1, 1, 1} });
+    const bool ok08 = soft_compare(m08.det(), "0");
+
+    agc::matrix<int8_t> m09(3, 3, { {1, 1, 1} ,
+                                    {0, 0, 0} ,
+                                    {1, 1, 1} });
+    const bool ok09 = soft_compare(m09.det(), "0");
+
+    bool ok10 = false;
     try { agc::matrix<int8_t>(3, 2).det(); }
-    catch (const std::domain_error& e) { ok4 = std::string(e.what()) == e_msg; }
+    catch (const std::domain_error& e) { ok10 = std::string(e.what()) == e_msg; }
 
-    const bool ok = ok1 && ok2 && ok3 && ok4;
+    const bool ok = ok01 && ok02 && ok03 && ok04 && ok05 &&
+                    ok06 && ok07 && ok08 && ok09 && ok10;
     print_test_output("RunTest_Matrix_should_be_able_to_calc_determinant", ok);
 }
 
