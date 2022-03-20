@@ -585,8 +585,28 @@ public:
     {
         return (*this) * other == this->identity();
     }
+    double det()
+    {
+        matrix<double> a = this->get_as_double_matrix();
+
+        return 0.0;
+    }
 
 private:
+    matrix<double> get_as_double_matrix()
+    {
+        matrix<double> a(rows, cols);
+        for (int i = 1; i <= rows; i++)
+        {
+            for (int j = 1; j <= cols; j++)
+            {
+                a[i][j] = (*this)[i][j];
+            }
+        }
+
+        return a;
+    }
+
     std::vector<matrix_row> mtx;
     int rows;
     int cols;
