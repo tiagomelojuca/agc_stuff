@@ -581,7 +581,7 @@ public:
 
         return aT == aO;
     }
-    bool is_inverse(const matrix& other)
+    bool is_inverse(const matrix& other) const
     {
         return (*this) * other == this->identity();
     }
