@@ -1083,9 +1083,7 @@ public:
             const double aii = G[i][i];
             if (aii == 0.0)
             {
-                throw std::domain_error(
-                    "reached a division by zero in augmented matrix"
-                );
+                return matrix<double>(G.size_cols(), G.size_rows() + 1);
             }
 
             for (int j = i + 1; j <= size_eqsys; j++)
@@ -1096,6 +1094,8 @@ public:
                     G[j][k] -= ratio * G[i][k];
                 }
             }
+
+            order_rows(G);
         }
 
         return G;
@@ -1104,9 +1104,12 @@ public:
     matrix<double> solve() const
     {
         matrix<double> G = gauss();
-        matrix<double> V = gauss_back_substitution(G);
+        if (G.is_null_matrix())
+        {
+            return matrix<double>(G.size_rows(), 1);
+        }
 
-        return V;
+        return gauss_back_substitution(G);
     }
 
     static vector<double> solve(const std::vector<std::vector<double>>& mtx)
